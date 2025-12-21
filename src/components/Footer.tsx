@@ -28,7 +28,7 @@ export function Footer() {
               </div>
               <div className="flex items-start gap-2">
                 <MapPin className="w-4 h-4 mt-1" />
-                <span>123 ถนนXXX เขตXXX กรุงเทพฯ 10XXX</span>
+                <span>ถนนเวียงชัย-หนองหลวง เชียงราย</span>
               </div>
             </div>
           </div>
