@@ -1,6 +1,21 @@
 import { useState } from 'react';
 import { Search, SlidersHorizontal } from 'lucide-react';
 import imgHero from "figma:asset/8801ce45fa951cce6a9e6d1e2b15a8abf5650a5f.png";
+import h1 from "../assets/image/h01.jpg";
+import h2 from "../assets/image/h02.jpg";
+import h3 from "../assets/image/h03.jpg";
+import h4 from "../assets/image/h04.jpg";
+import h5 from "../assets/image/h05.jpg";
+import h6 from "../assets/image/h06.jpg";
+import h7 from "../assets/image/h07.jpg";
+import h8 from "../assets/image/h08.jpg";
+import h9 from "../assets/image/h09.jpg";
+
+
+
+
+
+
 
 interface ProductsPageProps {
   onNavigate: (page: string, productId?: string) => void;
@@ -8,15 +23,15 @@ interface ProductsPageProps {
 
 // Mock products data
 const allProducts = [
-  { id: '1', name: 'น้ำผึ้งดอกไม้ป่า', description: 'น้ำผึ้งจากดอกไม้ป่าธรรมชาติ', price: 350, category: 'น้ำผึ้งดอกไม้' },
-  { id: '2', name: 'น้ำผึ้งลำไย', description: 'น้ำผึ้งจากดอกลำไยแท้', price: 400, category: 'น้ำผึ้งผลไม้' },
-  { id: '3', name: 'น้ำผึ้งลิ้นจี่', description: 'น้ำผึ้งจากดอกลิ้นจี่คุณภาพ', price: 380, category: 'น้ำผึ้งผลไม้' },
-  { id: '4', name: 'น้ำผึ้งมะนาว', description: 'น้ำผึ้งจากดอกมะนาวสด', price: 320, category: 'น้ำผึ้งผลไม้' },
-  { id: '5', name: 'น้ำผึ้งทานตะวัน', description: 'น้ำผึ้งจากดอกทานตะวัน', price: 300, category: 'น้ำผึ้งดอกไม้' },
-  { id: '6', name: 'น้ำผึ้งป่าภูเขา', description: 'น้ำผึ้งป่าคุณภาพพรีเมี่ยม', price: 450, category: 'น้ำผึ้งพิเศษ' },
-  { id: '7', name: 'น้ำผึ้งสมุนไพร', description: 'น้ำผึ้งผสมสมุนไพร', price: 420, category: 'น้ำผึ้งพิเศษ' },
-  { id: '8', name: 'น้ำผึ้งออแกนิค', description: 'น้ำผึ้งออแกนิคแท้ 100%', price: 500, category: 'น้ำผึ้งพิเศษ' },
-  { id: '9', name: 'น้ำผึ้งกาแฟ', description: 'น้ำผึ้งจากดอกกาแฟ', price: 360, category: 'น้ำผึ้งดอกไม้' },
+  {  id: '1',name: 'น้ำผึ้งดอกไม้ป่า',description: 'น้ำผึ้งจากดอกไม้ป่าธรรมชาติ',price: 350,category: 'น้ำผึ้งดอกไม้', image: h1 },
+  { id: '2', name: 'น้ำผึ้งลำไย', description: 'น้ำผึ้งจากดอกลำไยแท้', price: 400, category: 'น้ำผึ้งผลไม้', image: h2 },
+  { id: '3', name: 'น้ำผึ้งลิ้นจี่', description: 'น้ำผึ้งจากดอกลิ้นจี่คุณภาพ', price: 380, category: 'น้ำผึ้งผลไม้', image: h3 },
+  { id: '4', name: 'น้ำผึ้งมะนาว', description: 'น้ำผึ้งจากดอกมะนาวสด', price: 320, category: 'น้ำผึ้งผลไม้', image: h4 },
+  { id: '5', name: 'น้ำผึ้งทานตะวัน', description: 'น้ำผึ้งจากดอกทานตะวัน', price: 300, category: 'น้ำผึ้งดอกไม้', image: h5 },
+  { id: '6', name: 'น้ำผึ้งป่าภูเขา', description: 'น้ำผึ้งป่าคุณภาพพรีเมี่ยม', price: 450, category: 'น้ำผึ้งพิเศษ', image: h6 },
+  { id: '7', name: 'น้ำผึ้งสมุนไพร', description: 'น้ำผึ้งผสมสมุนไพร', price: 420, category: 'น้ำผึ้งพิเศษ', image: h7 },
+  { id: '8', name: 'น้ำผึ้งออแกนิค', description: 'น้ำผึ้งออแกนิคแท้ 100%', price: 500, category: 'น้ำผึ้งพิเศษ', image: h8 },
+  { id: '9', name: 'น้ำผึ้งกาแฟ', description: 'น้ำผึ้งจากดอกกาแฟ', price: 360, category: 'น้ำผึ้งดอกไม้', image: h9 },
   { id: '10', name: 'น้ำผึ้งยูคาลิปตัส', description: 'น้ำผึ้งจากดอกยูคาลิปตัส', price: 390, category: 'น้ำผึ้งดอกไม้' },
   { id: '11', name: 'น้ำผึ้งส้ม', description: 'น้ำผึ้งจากดอกส้ม', price: 370, category: 'น้ำผึ้งผลไม้' },
   { id: '12', name: 'น้ำผึ้งมะม่วง', description: 'น้ำผึ้งจากดอกมะม่วง', price: 340, category: 'น้ำผึ้งผลไม้' },
@@ -138,26 +153,34 @@ export function ProductsPage({ onNavigate }: ProductsPageProps) {
           พบสินค้า {filteredProducts.length} รายการ
         </div>
 
-        {/* Products Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-          {filteredProducts.map((product) => (
-            <div key={product.id} className="bg-white rounded-[20px] overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
-              <div className="bg-[#999999] h-[300px]"></div>
-              <div className="p-6">
-                <h3 className="text-black text-center mb-2">{product.name}</h3>
-                <p className="text-[#a6a6a6] text-sm text-center mb-2">{product.description}</p>
-                <p className="text-xs text-center text-[#898989] mb-4">{product.category}</p>
-                <p className="text-black text-center mb-4">ราคา {product.price} ฿</p>
-                <button
-                  onClick={() => onNavigate('product-detail', product.id)}
-                  className="w-full bg-[#f2b530] hover:bg-[#f6b82d] text-white py-3 rounded-[20px] transition-colors"
-                >
-                  รายละเอียด
-                </button>
-              </div>
-            </div>
-          ))}
-        </div>
+       {/* Products Grid */}
+<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+  {filteredProducts.map((product) => (
+    <div
+      key={product.id}
+      className="bg-white rounded-[20px] overflow-hidden shadow-lg hover:shadow-xl transition-shadow"
+    >
+      <img
+        src={product.image || h1}
+        alt={product.name}
+        className="w-full h-[200px] object-cover"
+      />
+
+      <div className="p-6">
+        <h3 className="text-black text-center mb-2">{product.name}</h3>
+        <p className="text-[#a6a6a6] text-sm text-center mb-2">{product.description}</p>
+        <p className="text-xs text-center text-[#898989] mb-4">{product.category}</p>
+        <p className="text-black text-center mb-4">ราคา {product.price} ฿</p>
+        <button
+          onClick={() => onNavigate('product-detail', product.id)}
+          className="w-full bg-[#f2b530] hover:bg-[#f6b82d] text-white py-3 rounded-[20px] transition-colors"
+        >
+          รายละเอียด
+        </button>
+      </div>
+    </div>
+  ))}
+</div>
 
         {/* No Results */}
         {filteredProducts.length === 0 && (
