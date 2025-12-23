@@ -37,7 +37,7 @@ export function FloatingSocialIcons() {
     >
       {/* Facebook Icon */}
       <a
-        href="https://facebook.com"
+        href="https://www.facebook.com/Thaweechokebees?locale=th_TH"
         target="_blank"
         rel="noopener noreferrer"
         className="block w-[50px] h-[50px] md:w-[70px] md:h-[70px] hover:scale-110 transition-transform shadow-lg rounded-full overflow-hidden"
@@ -51,7 +51,7 @@ export function FloatingSocialIcons() {
 
       {/* Line Icon */}
       <a
-        href="https://line.me"
+        href="https://linevoom.line.me/user/_dfBvlrz_2LZF2ct7Gp63mxT3_qsExy9ks-fuZRw"
         target="_blank"
         rel="noopener noreferrer"
         className="block w-[50px] h-[50px] md:w-[70px] md:h-[70px] hover:scale-110 transition-transform shadow-lg rounded-full overflow-hidden"

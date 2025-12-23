@@ -116,6 +116,8 @@
 
   body {
     line-height: inherit;
+    font-family: "IBM Plex Sans Thai", ui-sans-serif, system-ui, sans-serif;
+    line-height: 1.7;
   }
 
   hr {
@@ -1614,6 +1616,7 @@
 html {
   font-size: var(--font-size);
   scroll-behavior: smooth;
+  font-size: 20px;
 }
 
 @media (width <= 768px) {
