@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Menu, X } from 'lucide-react';
-import imgLogo from "figma:asset/3f3bbe27f96a790a6297f7bccfa6df7d56c76528.png";
+import imgLogo from "@/assets/image/logo.png";
 
 interface NavigationProps {
   currentPage: string;
