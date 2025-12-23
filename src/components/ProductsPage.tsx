@@ -1,6 +1,10 @@
 import { useState } from 'react';
 import { Search, SlidersHorizontal } from 'lucide-react';
-import imgHero from "figma:asset/8801ce45fa951cce6a9e6d1e2b15a8abf5650a5f.png";
+import imgHero from '../assets/image/8801ce45fa951cce6a9e6d1e2b15a8abf5650a5f.png';
+import image01 from '../assets/image/banner1.png';
+
+
+
 
 interface ProductsPageProps {
   onNavigate: (page: string, productId?: string) => void;
@@ -8,7 +12,7 @@ interface ProductsPageProps {
 
 // Mock products data
 const allProducts = [
-  { id: '1', name: 'น้ำผึ้งดอกไม้ป่า', description: 'น้ำผึ้งจากดอกไม้ป่าธรรมชาติ', price: 350, category: 'น้ำผึ้งดอกไม้' },
+  {  id: '1',name: 'น้ำผึ้งดอกไม้ป่า',description: 'น้ำผึ้งจากดอกไม้ป่าธรรมชาติ',price: 350,category: 'น้ำผึ้งดอกไม้',image: image01, },
   { id: '2', name: 'น้ำผึ้งลำไย', description: 'น้ำผึ้งจากดอกลำไยแท้', price: 400, category: 'น้ำผึ้งผลไม้' },
   { id: '3', name: 'น้ำผึ้งลิ้นจี่', description: 'น้ำผึ้งจากดอกลิ้นจี่คุณภาพ', price: 380, category: 'น้ำผึ้งผลไม้' },
   { id: '4', name: 'น้ำผึ้งมะนาว', description: 'น้ำผึ้งจากดอกมะนาวสด', price: 320, category: 'น้ำผึ้งผลไม้' },
