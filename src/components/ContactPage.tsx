@@ -2,11 +2,9 @@ import { MapPin, Phone, Mail, Clock, Send, MessageCircle } from 'lucide-react';
 import { useState } from 'react';
 import imgFacebook from "figma:asset/1246e26b2e96a420d7d7cbdd26dc70ecc5f6f20b.png";
 import imgLine from "figma:asset/ee94cf026fc403e8421bd64413a8a436652ad5f0.png";
-
 interface ContactPageProps {
   onNavigate: (page: string) => void;
 }
-
 export function ContactPage({ onNavigate }: ContactPageProps) {
   const [formData, setFormData] = useState({
     name: '',
