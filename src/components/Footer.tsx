@@ -9,8 +9,9 @@ export function Footer() {
           <div>
             <h3 className="mb-4">ร้านน้ำผึ้งทวีโชค</h3>
             <p className="text-sm opacity-90">
-              ผู้ผลิตและจำหน่ายน้ำผึ้งคุณภาพ<br />
-              มีประสบการณ์กว่า 30 ปี
+              ผู้ผลิตและจำหน่ายน้ำผึ้งคุณภาพ<br/>
+              มีประสบการณ์กว่า 30 ปี<br/>
+              รับจัดกระเช้าและจำหน่ายผลิตภัณฑ์ชุมชน
             </p>
           </div>
 
@@ -20,15 +21,15 @@ export function Footer() {
             <div className="space-y-2 text-sm">
               <div className="flex items-center gap-2">
                 <Phone className="w-4 h-4" />
-                <span>023-123-XXXX</span>
+                <span>097-465-1699</span>
               </div>
               <div className="flex items-center gap-2">
                 <Mail className="w-4 h-4" />
-                <span>info@namphuengthaweechoke.com</span>
+                <span>jailaknorravit@gmail.com</span>
               </div>
               <div className="flex items-start gap-2">
                 <MapPin className="w-4 h-4 mt-1" />
-                <span>ถนนเวียงชัย-หนองหลวง เชียงราย</span>
+                <span>ถนนเวียงชัย-หนองหลวง เชียงราย 57120</span>
               </div>
             </div>
           </div>

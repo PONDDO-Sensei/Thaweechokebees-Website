@@ -1,6 +1,6 @@
-import img3559721 from "figma:asset/ee94cf026fc403e8421bd64413a8a436652ad5f0.png";
-import img2021FacebookIconSvg1 from "figma:asset/1246e26b2e96a420d7d7cbdd26dc70ecc5f6f20b.png";
 import { useEffect, useState } from "react";
+import imgFacebook from "figma:asset/1246e26b2e96a420d7d7cbdd26dc70ecc5f6f20b.png";
+import imgLine from "figma:asset/ee94cf026fc403e8421bd64413a8a436652ad5f0.png";
 
 export function SocialMediaFloat() {
   const [isVisible, setIsVisible] = useState(true);
@@ -10,50 +10,54 @@ export function SocialMediaFloat() {
       const windowHeight = window.innerHeight;
       const documentHeight = document.documentElement.scrollHeight;
       const scrollTop = window.scrollY;
-      const footerHeight = 136; // footer height
-      
-      // Hide when reaching footer
-      if (scrollTop + windowHeight >= documentHeight - footerHeight) {
-        setIsVisible(false);
-      } else {
-        setIsVisible(true);
-      }
+      const footerHeight = 150; 
+
+      const shouldHide =
+        scrollTop + windowHeight >= documentHeight - footerHeight;
+
+      setIsVisible(!shouldHide);
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    handleScroll(); // run ครั้งแรก
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
     <div
-      className={`fixed right-[30px] z-50 transition-opacity duration-300 hidden md:block ${
-        isVisible ? 'opacity-100' : 'opacity-0 pointer-events-none'
-      }`}
-      style={{ bottom: '100px' }}
+      className={`fixed right-[30px] bottom-[100px] z-[9999] hidden md:block
+        transition-opacity duration-300
+        ${isVisible ? "opacity-100" : "opacity-0"}
+      `}
     >
       <div className="flex flex-col gap-4">
+        {/* Facebook */}
         <a
-          href="https://www.facebook.com"
+          href="https://www.facebook.com/Thaweechokebees?locale=th_TH"
           target="_blank"
           rel="noopener noreferrer"
-          className="block size-[70px] hover:scale-110 transition-transform duration-200"
+          aria-label="Facebook"
+          className="block size-[70px] pointer-events-auto hover:scale-110 transition-transform duration-200"
         >
           <img
+            src={imgFacebook}
             alt="Facebook"
-            className="size-full object-cover cursor-pointer"
-            src={img2021FacebookIconSvg1}
+            className="size-full object-cover"
           />
         </a>
+
+        {/* LINE */}
         <a
-          href="https://line.me"
+          href="https://linevoom.line.me/user/_dfBvlrz_2LZF2ct7Gp63mxT3_qsExy9ks-fuZRw"
           target="_blank"
           rel="noopener noreferrer"
-          className="block size-[70px] hover:scale-110 transition-transform duration-200"
+          aria-label="LINE"
+          className="block size-[70px] pointer-events-auto hover:scale-110 transition-transform duration-200"
         >
           <img
-            alt="Line"
-            className="size-full object-cover cursor-pointer"
-            src={img3559721}
+            src={imgLine}
+            alt="LINE"
+            className="size-full object-cover"
           />
         </a>
       </div>

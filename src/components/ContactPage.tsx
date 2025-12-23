@@ -64,9 +64,9 @@ export function ContactPage({ onNavigate }: ContactPageProps) {
                   <div>
                     <h3 className="text-black text-sm mb-2">ที่อยู่</h3>
                     <p className="text-[#5b5b5b] text-sm">
-                      123 ถนนXXX<br />
-                      แขวง/ตำบล XXX เขต/อำเภอ XXX<br />
-                      กรุงเทพฯ 10XXX
+                      198 ม.10<br />
+                      ตำบล เมืองชุม เขต/อำเภอ เวียงชัย<br />
+                      เชียงราย 57120
                     </p>
                   </div>
                 </div>
@@ -81,8 +81,7 @@ export function ContactPage({ onNavigate }: ContactPageProps) {
                   <div>
                     <h3 className="text-black text-sm mb-2">โทรศัพท์</h3>
                     <p className="text-[#5b5b5b] text-sm">
-                      02-XXX-XXXX<br />
-                      08X-XXX-XXXX
+                      097-465-1699
                     </p>
                   </div>
                 </div>
@@ -97,8 +96,7 @@ export function ContactPage({ onNavigate }: ContactPageProps) {
                   <div>
                     <h3 className="text-black text-sm mb-2">อีเมล</h3>
                     <p className="text-[#5b5b5b] text-sm">
-                      info@namphuengthaweechoke.com<br />
-                      sales@namphuengthaweechoke.com
+                      jailaknorravit@gmail.com
                     </p>
                   </div>
                 </div>
@@ -113,8 +111,8 @@ export function ContactPage({ onNavigate }: ContactPageProps) {
                   <div>
                     <h3 className="text-black text-sm mb-2">เวลาทำการ</h3>
                     <p className="text-[#5b5b5b] text-sm">
-                      จันทร์ - ศุกร์: 09:00 - 18:00<br />
-                      เสาร์ - อาทิตย์: 09:00 - 17:00
+                      จันทร์ - ศุกร์: 09:00 - 17:00<br />
+                      เสาร์: 09:00 - 17:00
                     </p>
                   </div>
                 </div>
@@ -126,7 +124,7 @@ export function ContactPage({ onNavigate }: ContactPageProps) {
               <h3 className="text-black mb-4">ติดตามเรา</h3>
               <div className="flex gap-4">
                 <a
-                  href="https://facebook.com"
+                  href="https://www.facebook.com/Thaweechokebees?locale=th_TH"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-12 h-12 bg-[#1877F2] rounded-full flex items-center justify-center hover:scale-110 transition-transform"
@@ -134,7 +132,7 @@ export function ContactPage({ onNavigate }: ContactPageProps) {
                   <img src={imgFacebook} alt="Facebook" className="w-6 h-6" />
                 </a>
                 <a
-                  href="https://line.me"
+                  href="https://linevoom.line.me/user/_dfBvlrz_2LZF2ct7Gp63mxT3_qsExy9ks-fuZRw"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-12 h-12 bg-[#00B900] rounded-full flex items-center justify-center hover:scale-110 transition-transform"
@@ -252,7 +250,7 @@ export function ContactPage({ onNavigate }: ContactPageProps) {
               {/* Embedded Google Maps */}
               <iframe
                 title="Google Maps"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3875.5379537431945!2d100.49328931483058!3d13.756331590353308!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30e29ed269e0e7b3%3A0xb7fcf94c5681881e!2sBangkok%2C%20Thailand!5e0!3m2!1sen!2s!4v1234567890123!5m2!1sen!2s"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3752.0886965175787!2d99.9421631752258!3d19.878476281498415!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30d7a862234df4a5%3A0x1ce664ec565d5de6!2z4Lic4Li24LmJ4LiH4LiX4Lin4Li14LmC4LiK4LiE!5e0!3m2!1sth!2sth!4v1766507374453!5m2!1sth!2sth"
                 width="100%"
                 height="100%"
                 style={{ border: 0 }}
@@ -277,7 +275,7 @@ export function ContactPage({ onNavigate }: ContactPageProps) {
               </div>
             </div>
             <button
-              onClick={() => window.open('https://line.me/ti/p/~@example', '_blank')}
+              onClick={() => window.open('https://linevoom.line.me/user/_dfBvlrz_2LZF2ct7Gp63mxT3_qsExy9ks-fuZRw', '_blank')}
               className="w-full bg-white text-[#00B900] py-3 rounded-full hover:bg-gray-100 transition-colors"
             >
               เพิ่มเพื่อนใน Line
@@ -295,7 +293,7 @@ export function ContactPage({ onNavigate }: ContactPageProps) {
               </div>
             </div>
             <button
-              onClick={() => window.open('https://facebook.com/namphuengthaweechoke', '_blank')}
+              onClick={() => window.open('https://www.facebook.com/Thaweechokebees?locale=th_TH', '_blank')}
               className="w-full bg-white text-[#1877F2] py-3 rounded-full hover:bg-gray-100 transition-colors"
             >
               ส่งข้อความทาง Messenger
