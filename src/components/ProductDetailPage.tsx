@@ -1,6 +1,19 @@
 import { ChevronLeft, Share2, Heart, ShoppingCart } from 'lucide-react';
+import { useState } from "react";
 import imgFacebook from "figma:asset/1246e26b2e96a420d7d7cbdd26dc70ecc5f6f20b.png";
 import imgLine from "figma:asset/ee94cf026fc403e8421bd64413a8a436652ad5f0.png";
+import h1 from "../assets/image/h01.jpg";
+import h2 from "../assets/image/h02.jpg";
+import ch1 from "../assets/image/ch1.jpg";
+import ch2 from "../assets/image/ch2.jpg";
+import ch3 from "../assets/image/ch3.jpg";
+import h4 from "../assets/image/h04.jpg";
+import h5 from "../assets/image/h05.jpg";
+import h6 from "../assets/image/h06.jpg";
+import h7 from "../assets/image/h07.jpg";
+import h8 from "../assets/image/h08.jpg";
+import h9 from "../assets/image/h09.jpg";
+
 
 interface ProductDetailPageProps {
   productId: string;
@@ -11,10 +24,10 @@ interface ProductDetailPageProps {
 const productDetails: Record<string, any> = {
   '1': {
     id: '1',
-    name: 'น้ำผึ้งดอกไม้ป่า',
+    name: 'น้ำผึ้งเดือนห้า',
     description: 'น้ำผึ้งจากดอกไม้ป่าธรรมชาติ',
     price: 350,
-    category: 'น้ำผึ้งดอกไม้',
+    category: '-----',
     fullDescription: `น้ำผึ้งดอกไม้ป่าคุณภาพพรีเมี่ยม เก็บจากดอกไม้ป่าธรรมชาติที่ปลอดสารเคมี มีรสชาติหวานกลมกล่อม เหมาะสำหรับรับประทานเพื่อสุขภาพ`,
     features: [
       'น้ำผึ้งแท้ 100% ไม่มีการผสม',
@@ -28,14 +41,15 @@ const productDetails: Record<string, any> = {
       'บรรจุภัณฑ์': 'ขวดแก้ว',
       'อายุการเก็บ': '2 ปี',
       'การเก็บรักษา': 'เก็บในที่แห้ง ไม่โดนแสงแดด'
-    }
+    },
+    images: [h1],
   },
   '2': {
     id: '2',
-    name: 'น้ำผึ้งลำไย',
-    description: 'น้ำผึ้งจากดอกลำไยแท้',
+    name: 'น้ำผึ้งดอกลิ้นจี่',
+    description: '-----',
     price: 400,
-    category: 'น้ำผึ้งผลไม้',
+    category: '----',
     fullDescription: `น้ำผึ้งลำไยคุณภาพเกรดพรีเมี่ยม เก็บจากสวนลำไยในภาคเหนือ มีกลิ่นหอมของดอกลำไย รสชาติหวานมัน ช่วยบำรุงร่างกาย`,
     features: [
       'น้ำผึ้งจากดอกลำไยแท้',
@@ -49,13 +63,178 @@ const productDetails: Record<string, any> = {
       'บรรจุภัณฑ์': 'ขวดแก้ว',
       'อายุการเก็บ': '2 ปี',
       'การเก็บรักษา': 'เก็บในที่แห้ง ไม่โดนแสงแดด'
-    }
+    },
+ images: [h2],
   },
+  '3': {
+    id: '2',
+    name: 'ช็อกโกแลตน้ำผึ้ง',
+    description: 'น้ำผึ้งจากดอกลำไยแท้',
+    price: 400,
+    category: '-----',
+    fullDescription: `--------------`,
+    features: [
+      'น้ำผึ้งจากดอกลำไยแท้',
+      'กลิ่นหอมของดอกลำไย',
+      'ได้รับการรับรองคุณภาพ',
+      'รสชาติหวานมัน',
+      'เหมาะสำหรับทุกเพศทุกวัย'
+    ],
+    specifications: {
+      'ขนาด': '500 กรัม',
+      'บรรจุภัณฑ์': 'ขวดแก้ว',
+      'อายุการเก็บ': '2 ปี',
+      'การเก็บรักษา': 'เก็บในที่แห้ง ไม่โดนแสงแดด'
+    },
+ images: [ch2,ch1,ch3],
+  },
+
+ '4': {
+    id: '4',
+    name: 'ข้าวสามสี',
+    description: '_-----',
+    price: 400,
+    category: '-----',
+    fullDescription: `---------`,
+    features: [
+      'น้ำผึ้งจากดอกลำไยแท้',
+      'กลิ่นหอมของดอกลำไย',
+      'ได้รับการรับรองคุณภาพ',
+      'รสชาติหวานมัน',
+      'เหมาะสำหรับทุกเพศทุกวัย'
+    ],
+    specifications: {
+      'ขนาด': '500 กรัม',
+      'บรรจุภัณฑ์': 'ขวดแก้ว',
+      'อายุการเก็บ': '2 ปี',
+      'การเก็บรักษา': 'เก็บในที่แห้ง ไม่โดนแสงแดด'
+    },
+ images: [h4],
+  },
+
+  '5': {
+    id: '5',
+    name: 'น้ำผึ้งสามเกลอ',
+    description: '_-----',
+    price: 400,
+    category: '-----',
+    fullDescription: `---------`,
+    features: [
+      'น้ำผึ้งจากดอกลำไยแท้',
+      'กลิ่นหอมของดอกลำไย',
+      'ได้รับการรับรองคุณภาพ',
+      'รสชาติหวานมัน',
+      'เหมาะสำหรับทุกเพศทุกวัย'
+    ],
+    specifications: {
+      'ขนาด': '500 กรัม',
+      'บรรจุภัณฑ์': 'ขวดแก้ว',
+      'อายุการเก็บ': '2 ปี',
+      'การเก็บรักษา': 'เก็บในที่แห้ง ไม่โดนแสงแดด'
+    },
+ images: [h5],
+  },
+
+   '6': {
+    id: '6',
+    name: '--------',
+    description: '_-----',
+    price: 400,
+    category: '-----',
+    fullDescription: `---------`,
+    features: [
+      'น้ำผึ้งจากดอกลำไยแท้',
+      'กลิ่นหอมของดอกลำไย',
+      'ได้รับการรับรองคุณภาพ',
+      'รสชาติหวานมัน',
+      'เหมาะสำหรับทุกเพศทุกวัย'
+    ],
+    specifications: {
+      'ขนาด': '500 กรัม',
+      'บรรจุภัณฑ์': 'ขวดแก้ว',
+      'อายุการเก็บ': '2 ปี',
+      'การเก็บรักษา': 'เก็บในที่แห้ง ไม่โดนแสงแดด'
+    },
+ images: [h6],
+  },
+
+  '7': {
+    id: '7',
+    name: '--------',
+    description: '_-----',
+    price: 400,
+    category: '-----',
+    fullDescription: `---------`,
+    features: [
+      'น้ำผึ้งจากดอกลำไยแท้',
+      'กลิ่นหอมของดอกลำไย',
+      'ได้รับการรับรองคุณภาพ',
+      'รสชาติหวานมัน',
+      'เหมาะสำหรับทุกเพศทุกวัย'
+    ],
+    specifications: {
+      'ขนาด': '500 กรัม',
+      'บรรจุภัณฑ์': 'ขวดแก้ว',
+      'อายุการเก็บ': '2 ปี',
+      'การเก็บรักษา': 'เก็บในที่แห้ง ไม่โดนแสงแดด'
+    },
+ images: [h7],
+  },
+
+  '8': {
+    id: '8',
+    name: '--------',
+    description: '_-----',
+    price: 400,
+    category: '-----',
+    fullDescription: `---------`,
+    features: [
+      'น้ำผึ้งจากดอกลำไยแท้',
+      'กลิ่นหอมของดอกลำไย',
+      'ได้รับการรับรองคุณภาพ',
+      'รสชาติหวานมัน',
+      'เหมาะสำหรับทุกเพศทุกวัย'
+    ],
+    specifications: {
+      'ขนาด': '500 กรัม',
+      'บรรจุภัณฑ์': 'ขวดแก้ว',
+      'อายุการเก็บ': '2 ปี',
+      'การเก็บรักษา': 'เก็บในที่แห้ง ไม่โดนแสงแดด'
+    },
+ images: [h8],
+  },
+
+  '9': {
+    id: '9',
+    name: '--------',
+    description: '_-----',
+    price: 400,
+    category: '-----',
+    fullDescription: `---------`,
+    features: [
+      'น้ำผึ้งจากดอกลำไยแท้',
+      'กลิ่นหอมของดอกลำไย',
+      'ได้รับการรับรองคุณภาพ',
+      'รสชาติหวานมัน',
+      'เหมาะสำหรับทุกเพศทุกวัย'
+    ],
+    specifications: {
+      'ขนาด': '500 กรัม',
+      'บรรจุภัณฑ์': 'ขวดแก้ว',
+      'อายุการเก็บ': '2 ปี',
+      'การเก็บรักษา': 'เก็บในที่แห้ง ไม่โดนแสงแดด'
+    },
+ images: [h9],
+  },
+
+  };
   // Add more products as needed
-};
+
 
 export function ProductDetailPage({ productId, onNavigate }: ProductDetailPageProps) {
   const product = productDetails[productId] || productDetails['1'];
+  const [selectedImage, setSelectedImage] = useState(product.images[0]);
+
 
   const handleLineContact = () => {
     window.open('https://line.me/ti/p/~@example', '_blank');
@@ -78,16 +257,37 @@ export function ProductDetailPage({ productId, onNavigate }: ProductDetailPagePr
         </button>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          {/* Product Images */}
-          <div>
-            <div className="bg-[#999999] w-full aspect-square rounded-[20px] mb-4"></div>
-            <div className="grid grid-cols-4 gap-4">
-              <div className="bg-[#999999] aspect-square rounded-lg cursor-pointer hover:opacity-80 transition-opacity"></div>
-              <div className="bg-[#999999] aspect-square rounded-lg cursor-pointer hover:opacity-80 transition-opacity"></div>
-              <div className="bg-[#999999] aspect-square rounded-lg cursor-pointer hover:opacity-80 transition-opacity"></div>
-              <div className="bg-[#999999] aspect-square rounded-lg cursor-pointer hover:opacity-80 transition-opacity"></div>
-            </div>
-          </div>
+
+          
+{/* Product Images */}
+<div className="flex flex-col items-center">
+  {/* รูปใหญ่ */}
+<div className="w-full max-w-[420px] aspect-square overflow-hidden rounded-[20px] mb-4 bg-white mx-auto">
+    <img
+      src={selectedImage}
+      alt={product.name}
+      className="w-full h-full object-contain"
+    />
+  </div>
+
+  {/* รูปเล็ก */}
+  <div className="grid grid-cols-4 gap-3 w-full max-w-[420px]">
+    {product.images.map((img: string, index: number) => (
+      <div
+        key={index}
+        onClick={() => setSelectedImage(img)}
+        className={`aspect-square overflow-hidden rounded-lg cursor-pointer
+          ${selectedImage === img ? "ring-2 ring-[#f2b530]" : ""}`}
+      >
+        <img
+          src={img}
+          alt={`${product.name}-${index}`}
+          className="w-full h-full object-cover hover:opacity-80"
+        />
+      </div>
+    ))}
+  </div>
+</div>
 
           {/* Product Info */}
           <div>

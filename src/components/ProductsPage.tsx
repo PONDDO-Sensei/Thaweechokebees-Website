@@ -3,7 +3,7 @@ import { Search, SlidersHorizontal } from 'lucide-react';
 import imgHero from "figma:asset/8801ce45fa951cce6a9e6d1e2b15a8abf5650a5f.png";
 import h1 from "../assets/image/h01.jpg";
 import h2 from "../assets/image/h02.jpg";
-import h3 from "../assets/image/h03.jpg";
+import ch2 from "../assets/image/ch2.jpg";
 import h4 from "../assets/image/h04.jpg";
 import h5 from "../assets/image/h05.jpg";
 import h6 from "../assets/image/h06.jpg";
@@ -23,22 +23,16 @@ interface ProductsPageProps {
 
 // Mock products data
 const allProducts = [
-  {  id: '1',name: 'น้ำผึ้งดอกไม้ป่า',description: 'น้ำผึ้งจากดอกไม้ป่าธรรมชาติ',price: 350,category: 'น้ำผึ้งดอกไม้', image: h1 },
-  { id: '2', name: 'น้ำผึ้งลำไย', description: 'น้ำผึ้งจากดอกลำไยแท้', price: 400, category: 'น้ำผึ้งผลไม้', image: h2 },
-  { id: '3', name: 'น้ำผึ้งลิ้นจี่', description: 'น้ำผึ้งจากดอกลิ้นจี่คุณภาพ', price: 380, category: 'น้ำผึ้งผลไม้', image: h3 },
-  { id: '4', name: 'น้ำผึ้งมะนาว', description: 'น้ำผึ้งจากดอกมะนาวสด', price: 320, category: 'น้ำผึ้งผลไม้', image: h4 },
-  { id: '5', name: 'น้ำผึ้งทานตะวัน', description: 'น้ำผึ้งจากดอกทานตะวัน', price: 300, category: 'น้ำผึ้งดอกไม้', image: h5 },
-  { id: '6', name: 'น้ำผึ้งป่าภูเขา', description: 'น้ำผึ้งป่าคุณภาพพรีเมี่ยม', price: 450, category: 'น้ำผึ้งพิเศษ', image: h6 },
-  { id: '7', name: 'น้ำผึ้งสมุนไพร', description: 'น้ำผึ้งผสมสมุนไพร', price: 420, category: 'น้ำผึ้งพิเศษ', image: h7 },
-  { id: '8', name: 'น้ำผึ้งออแกนิค', description: 'น้ำผึ้งออแกนิคแท้ 100%', price: 500, category: 'น้ำผึ้งพิเศษ', image: h8 },
-  { id: '9', name: 'น้ำผึ้งกาแฟ', description: 'น้ำผึ้งจากดอกกาแฟ', price: 360, category: 'น้ำผึ้งดอกไม้', image: h9 },
-  { id: '10', name: 'น้ำผึ้งยูคาลิปตัส', description: 'น้ำผึ้งจากดอกยูคาลิปตัส', price: 390, category: 'น้ำผึ้งดอกไม้' },
-  { id: '11', name: 'น้ำผึ้งส้ม', description: 'น้ำผึ้งจากดอกส้ม', price: 370, category: 'น้ำผึ้งผลไม้' },
-  { id: '12', name: 'น้ำผึ้งมะม่วง', description: 'น้ำผึ้งจากดอกมะม่วง', price: 340, category: 'น้ำผึ้งผลไม้' },
-  { id: '13', name: 'น้ำผึ้งโรสแมรี่', description: 'น้ำผึ้งจากดอกโรสแมรี่', price: 430, category: 'น้ำผึ้งสมุนไพร' },
-  { id: '14', name: 'น้ำผึ้งลาเวนเดอร์', description: 'น้ำผึ้งจากดอกลาเวนเดอร์', price: 460, category: 'น้ำผึ้งสมุนไพร' },
-  { id: '15', name: 'น้ำผึ้งทิปปี้', description: 'น้ำผึ้งจากดอกทิปปี้', price: 310, category: 'น้ำผึ้งดอกไม้' },
-  { id: '16', name: 'น้ำผึ้งรวมมิตร', description: 'น้ำผึ้งผสมหลายชนิด', price: 380, category: 'น้ำผึ้งพิเศษ' },
+  {  id: '1',name: 'น้ำผึ้งเดือนห้า',description: 'น้ำผึ้งเดือนห้า',price: 350,category: '--', image: h1 },
+  { id: '2', name: 'น้ำผึ้งดอกลิ้นจี่', description: 'น้ำผึ้งดอกลิ้นจี่', price: 400, category: '--', image: h2 },
+  { id: '3', name: 'ช็อกโกแลตน้ำผึ้ง', description: 'ช็อกโกแลตน้ำผึ้ง', price: 380, category: '---------', image: ch2 },
+  { id: '4', name: 'ข้าวสามสี', description: 'ข้าวสามสี', price: 320, category: '----', image: h4 },
+  { id: '5', name: 'น้ำผึ้งสามเกลอ', description: 'น้ำผึ้งสามเกลอ', price: 300, category: '---', image: h5 },
+  { id: '6', name: '-----', description: '---', price: 450, category: '---', image: h6 },
+  { id: '7', name: '---', description: '---', price: 420, category: '---', image: h7 },
+  { id: '8', name: '---', description: '--- ', price: 500, category: '---', image: h8 },
+  { id: '9', name: '---', description: '---', price: 360, category: '---', image: h9 },
+
 ];
 
 const categories = ['ทั้งหมด', 'น้ำผึ้งดอกไม้', 'น้ำผึ้งผลไม้', 'น้ำผึ้งพิเศษ', 'น้ำผึ้งสมุนไพร'];
