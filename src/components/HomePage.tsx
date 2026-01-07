@@ -148,14 +148,11 @@ export function HomePage({ onNavigate }: HomePageProps) {
               onClick={() => onNavigate("product-detail", product.id)}
               className="cursor-pointer bg-white rounded-[20px] overflow-hidden shadow-lg hover:shadow-xl transition-all hover:-translate-y-1"
             >
-              <ImageWithFallback
+              <img
                 src={product.image}
                 alt={product.name}
                 loading="lazy"
                 className="w-full h-[300px] object-cover"
-                fallback={
-                  <div className="bg-[#d9d9d9] w-full h-[300px]" />
-                }
               />
 
               <div className="p-6">
