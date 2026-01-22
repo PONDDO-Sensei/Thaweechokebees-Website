@@ -1,41 +1,64 @@
-import { Award, Users, Target, Heart } from 'lucide-react';
-import { ImageWithFallback } from './figma/ImageWithFallback';
+import { useEffect, useState } from "react";
+import { Award, Users, Target, Heart } from "lucide-react";
+import { ImageWithFallback } from "./figma/ImageWithFallback";
+
 import award1 from "@/assets/image/G01.jpg";
 import award2 from "@/assets/image/G02.jpg";
 import award3 from "@/assets/image/G03.jpg";
 import award4 from "@/assets/image/G04.jpg";
-import award5 from "@/assets/image/G05.jpg";
-import award6 from "@/assets/image/G06.jpg";
-import award7 from "@/assets/image/G07.jpg";
-interface AboutPageProps {
-  onNavigate: (page: string) => void;
-}
+import award5 from "@/assets/image/G07.jpg";
 
-// Timeline data
+/* ---------------- Timeline ---------------- */
 const timeline = [
-  { year: '2536', event: 'ก่อตั้งร้านน้ำผึ้งทวีโชค เริ่มต้นธุรกิจเลี้ยงผึ้ง' },
-  { year: '2540', event: 'ขยายพื้นที่เลี้ยงผึ้งครอบคลุมจังหวัดเชียงราย ' },
-  { year: '2545', event: 'ได้รับรางวัลน้ำผึ้งคุณภาพดีเด่นระดับประเทศ' },
-  { year: '2550', event: 'เปิดศูนย์เรียนรู้เรื่องผึ้งและผลิตภัณฑ์' },
-  { year: '2555', event: 'ได้รับการรับรอง GMP และ HACCP' },
-  { year: '2560', event: 'ขยายธุรกิจสู่ตลาดออนไลน์' },
-  { year: '2565', event: 'ครบรอบ 30 ปี แห่งการเดินทางสู่ความสำเร็จ' },
-];
-// Awards data
-const awards = [
-  { year: '2545', title: 'รางวัลน้ำผึ้งคุณภาพดีเด่น', organization: 'กระทรวงเกษตรและสหกรณ์' },
-  { year: '2548', title: 'รางวัล OTOP 5 ดาว', organization: 'กรมการพัฒนาชุมชน' },
-  { year: '2552', title: 'ผู้ประกอบการดีเด่น', organization: 'สภาอุตสาหกรรม' },
-  { year: '2555', title: 'มาตรฐาน GMP', organization: 'สำนักงานคณะกรรมการอาหารและยา' },
-  { year: '2558', title: 'รางวัลผลิตภัณฑ์เกษตรอินทรีย์', organization: 'กระทรวงเกษตรและสหกรณ์' },
-  { year: '2563', title: 'รางวัลวิสาหกิจชุมชนดีเด่น', organization: 'กรมการพัฒนาชุมชน' },
+  { year: "2558", event: "ก่อตั้งร้านน้ำผึ้งทวีโชค เริ่มต้นธุรกิจเลี้ยงผึ้ง,รับรองมาตรฐานผลิตภัณฑ์อุตสาหกรรม" },
+  { year: "2564", event: "รับรองผลตรวจคุณภาพนน้ำผึ้ง" },
+  { year: "2567", event: "ได้รับอนุญาตให้ใช้ตราผลิตภัณฑ์จังหวัดเชียงราย" },
+  { year: "2568", event: "เข้ากิจกรรมพัฒนาผลิตภัณฑ์อาหารและเครื่องดื่ม" },
+ 
 ];
 
-export function AboutPage({ onNavigate }: AboutPageProps) {
+/* ---------------- Awards Images ---------------- */
+const awardImages = [
+  award1,
+  award2,
+  award3,
+  award4,
+  award5,
+  
+];
+
+export function AboutPage() {
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  /* ---------- manual control ---------- */
+  const prevSlide = () => {
+    setCurrentIndex((prev) =>
+      prev === 0 ? awardImages.length - 1 : prev - 1
+    );
+  };
+
+  const nextSlide = () => {
+    setCurrentIndex((prev) =>
+      prev === awardImages.length - 1 ? 0 : prev + 1
+    );
+  };
+
+  /* ---------- auto slide ---------- */
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentIndex((prev) =>
+        prev === awardImages.length - 1 ? 0 : prev + 1
+      );
+    }, 3000); // 3 วินาที
+
+    return () => clearInterval(timer);
+  }, []);
+
   return (
     <div className="min-h-screen bg-[#fbf8ef]">
-      {/* Hero Section */}
-      <section className="relative h-[400px] bg-gradient-to-r from-[#f2b530] to-[#c68d00] overflow-hidden">
+
+      {/* ================= Hero ================= */}
+      <section className="relative h-[380px] bg-gradient-to-r from-[#f2b530] to-[#c68d00] overflow-hidden">
         <div className="absolute inset-0 opacity-20">
           <ImageWithFallback
             src="src/assets/image/Home.jpg"
@@ -50,123 +73,144 @@ export function AboutPage({ onNavigate }: AboutPageProps) {
         </div>
       </section>
 
-      {/* About Content */}
+      {/* ================= Content ================= */}
       <section className="max-w-[1422px] mx-auto px-8 py-16">
-        {/* Company Story */}
+
+        {/* ---------- About ---------- */}
         <div className="mb-16">
           <h2 className="text-black mb-8 text-center">เกี่ยวกับเรา</h2>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div className="font-bold">
-            <p>
-           ร้านน้ำผึ้งทวีโชค เริ่มต้นจากความรักในธรรมชาติและความตั้งใจที่จะนำเสนอน้ำผึ้งคุณภาพดีให้กับผู้บริโภค
-           เราเริ่มเลี้ยงผึ้งมาตั้งแต่ปี พ.ศ. 2536 ด้วยประสบการณ์และความชำนาญกว่า 30 ปี
-           </p>
-           <p>
-           เรามุ่งมั่นในการผลิตน้ำผึ้งคุณภาพสูง ปลอดสารเคมี ผ่านกระบวนการที่ได้มาตรฐาน
-           พร้อมทั้งเปิดพื้นที่ให้เป็นแหล่งเรียนรู้เรื่องผึ้งและผลิตภัณฑ์จากผึ้ง
-           </p>
-            <p>
-           วันนี้ เราภูมิใจที่ได้รับความไว้วางใจจากลูกค้ามากมาย และพร้อมที่จะพัฒนาผลิตภัณฑ์ให้ดียิ่งขึ้น
-           เพื่อสุขภาพที่ดีของทุกคนในครอบครัว
-           </p>
-           </div>
-            <div className="bg-[#999999] h-[400px] rounded-[20px]">
+            <div className="font-bold space-y-4">
+              <p>ร้านน้ำผึ้งทวีโชค เริ่มต้นจากความรักในธรรมชาติ</p>
+              <p>เรามุ่งมั่นผลิตน้ำผึ้งคุณภาพสูง ปลอดสารเคมี</p>
+              <p>วันนี้เราได้รับความไว้วางใจจากลูกค้ามากมาย</p>
+            </div>
+            <div className="h-[360px] rounded-[20px] overflow-hidden">
               <ImageWithFallback
                 src="src/assets/image/Home.jpg"
-                alt="Beekeeping"
-                className="w-full h-full object-cover rounded-[20px]"
+                className="w-full h-full object-cover"
               />
             </div>
           </div>
         </div>
 
-        {/* Core Values */}
+        {/* ---------- Core Values ---------- */}
         <div className="mb-16">
           <h2 className="text-black mb-8 text-center">ค่านิยมหลัก</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <div className="bg-white p-8 rounded-[20px] text-center shadow-lg">
-              <div className="w-16 h-16 bg-[#f2b530] rounded-full flex items-center justify-center mx-auto mb-4">
-                <Heart className="w-8 h-8 text-white" />
+            {[
+              { icon: Heart, title: "คุณภาพ" },
+              { icon: Target, title: "ความซื่อสัตย์" },
+              { icon: Users, title: "ลูกค้าคือศูนย์กลาง" },
+              { icon: Award, title: "นวัตกรรม" },
+            ].map((item, i) => (
+              <div
+                key={i}
+                className="bg-white p-8 rounded-[20px] text-center shadow"
+              >
+                <div className="w-16 h-16 bg-[#f2b530] rounded-full flex items-center justify-center mx-auto mb-4">
+                  <item.icon className="w-8 h-8 text-white" />
+                </div>
+                <h3 className="text-black">{item.title}</h3>
               </div>
-              <h3 className="text-black mb-2">คุณภาพ</h3>
-              <p className="text-[#5b5b5b] text-sm">
-                มุ่งมั่นผลิตน้ำผึ้งคุณภาพสูงสุด
-              </p>
-            </div>
-
-            <div className="bg-white p-8 rounded-[20px] text-center shadow-lg">
-              <div className="w-16 h-16 bg-[#f2b530] rounded-full flex items-center justify-center mx-auto mb-4">
-                <Target className="w-8 h-8 text-white" />
-              </div>
-              <h3 className="text-black mb-2">ความซื่อสัตย์</h3>
-              <p className="text-[#5b5b5b] text-sm">
-                โปร่งใสในทุกกระบวนการ
-              </p>
-            </div>
-
-            <div className="bg-white p-8 rounded-[20px] text-center shadow-lg">
-              <div className="w-16 h-16 bg-[#f2b530] rounded-full flex items-center justify-center mx-auto mb-4">
-                <Users className="w-8 h-8 text-white" />
-              </div>
-              <h3 className="text-black mb-2">ลูกค้าคือศูนย์กลาง</h3>
-              <p className="text-[#5b5b5b] text-sm">
-                ใส่ใจทุกความต้องการ
-              </p>
-            </div>
-
-            <div className="bg-white p-8 rounded-[20px] text-center shadow-lg">
-              <div className="w-16 h-16 bg-[#f2b530] rounded-full flex items-center justify-center mx-auto mb-4">
-                <Award className="w-8 h-8 text-white" />
-              </div>
-              <h3 className="text-black mb-2">นวัตกรรม</h3>
-              <p className="text-[#5b5b5b] text-sm">
-                พัฒนาอย่างไม่หยุดยั้ง
-              </p>
-            </div>
+            ))}
           </div>
         </div>
 
-        {/* Timeline */}
+        {/* ---------- Timeline ---------- */}
         <div className="mb-16">
           <h2 className="text-black mb-8 text-center">เส้นทางแห่งความสำเร็จ</h2>
-          <div className="relative">
-            <div className="absolute left-1/2 top-0 bottom-0 w-1 bg-[#f2b530] -translate-x-1/2 hidden lg:block"></div>
-            <div className="space-y-8">
-              {timeline.map((item, index) => (
-                <div key={index} className={`flex gap-8 items-center ${index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'}`}>
-                  <div className={`flex-1 ${index % 2 === 0 ? 'lg:text-right' : 'lg:text-left'}`}>
-                    <div className="bg-white p-6 rounded-[20px] shadow-lg inline-block">
-                      <div className="text-[#f2b530] mb-2">พ.ศ. {item.year}</div>
-                      <p className="text-[#5b5b5b]">{item.event}</p>
-                    </div>
-                  </div>
-                  <div className="w-8 h-8 bg-[#f2b530] rounded-full border-4 border-white shadow-lg flex-shrink-0 hidden lg:block"></div>
-                  <div className="flex-1"></div>
-                </div>
+          <div className="space-y-6 max-w-[800px] mx-auto">
+            {timeline.map((item, i) => (
+              <div key={i} className="bg-white p-6 rounded-[16px] shadow">
+                <div className="text-[#f2b530] mb-2">พ.ศ. {item.year}</div>
+                <p className="text-[#5b5b5b]">{item.event}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* ---------- Awards Slider (Elegant) ---------- */}
+        <div className="mb-16">
+          <h2 className="text-black mb-8 text-center">
+            รางวัลและความสำเร็จ
+          </h2>
+
+          <div className="relative max-w-[600px] mx-auto">
+            {/* Main Image Container */}
+            <div className="bg-gradient-to-br from-amber-50/30 to-orange-50/30 p-6 rounded-[24px] shadow-xl border border-gray-200/50">
+              <ImageWithFallback
+                src={awardImages[currentIndex]}
+                alt={`award-${currentIndex + 1}`}
+                className="
+                  w-full
+                  h-[400px]
+                  object-contain
+                  bg-transparent
+                  rounded-[16px]
+                "
+              />
+              
+              {/* Image Counter */}
+              <div className="text-center mt-4 text-sm text-gray-500">
+                {currentIndex + 1} / {awardImages.length}
+              </div>
+            </div>
+
+            {/* Navigation Buttons */}
+            <button
+              onClick={prevSlide}
+              className="
+                absolute left-4 top-1/2 -translate-y-1/2
+                w-12 h-12 rounded-full
+                bg-gradient-to-br from-[#f2b530] to-[#c68d00]
+                text-white text-2xl font-bold
+                flex items-center justify-center
+                hover:scale-110 active:scale-95
+                transition-all duration-200
+                shadow-lg hover:shadow-xl
+              "
+              aria-label="Previous"
+            >
+              ‹
+            </button>
+
+            <button
+              onClick={nextSlide}
+              className="
+                absolute right-4 top-1/2 -translate-y-1/2
+                w-12 h-12 rounded-full
+                bg-gradient-to-br from-[#f2b530] to-[#c68d00]
+                text-white text-2xl font-bold
+                flex items-center justify-center
+                hover:scale-110 active:scale-95
+                transition-all duration-200
+                shadow-lg hover:shadow-xl
+              "
+              aria-label="Next"
+            >
+              ›
+            </button>
+
+            {/* Dots Indicator */}
+            <div className="flex justify-center gap-2 mt-6">
+              {awardImages.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setCurrentIndex(index)}
+                  className={`
+                    w-2 h-2 rounded-full transition-all duration-300
+                    ${index === currentIndex 
+                      ? 'bg-[#f2b530] w-8' 
+                      : 'bg-gray-300 hover:bg-gray-400'}
+                  `}
+                  aria-label={`Go to image ${index + 1}`}
+                />
               ))}
             </div>
           </div>
         </div>
 
-        {/* Awards Section */}
-    <div className="mb-16">
-  <h2 className="text-black mb-8 text-center">รางวัลและความสำเร็จ</h2>
-
-  <div className="grid grid-cols-2 md:grid-cols-3 gap-6 max-w-[900px] mx-auto">
-    {[award1, award2, award3, award4, award5, award6,award7].map((img, index) => (
-      <div
-        key={index}
-        className="bg-white p-3 rounded-[16px] shadow-lg hover:scale-105 transition-transform"
-      >
-        <ImageWithFallback
-          src={img}
-          alt={`award-${index + 1}`}
-          className="w-full h-[140px] object-cover rounded-[12px]"
-        />
-      </div>
-    ))}
-  </div>
-</div>
       </section>
     </div>
   );

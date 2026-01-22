@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Menu, X } from 'lucide-react';
-import imgLogo from "@/assets/image/logo.png";
+import imgLogo from "@/assets/image/logobeev2.png";
 
 interface NavigationProps {
   currentPage: string;
