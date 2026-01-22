@@ -2,13 +2,22 @@ import { ChevronLeft, Share2, Heart, ShoppingCart } from 'lucide-react';
 import { useState } from "react";
 import imgFacebook from "figma:asset/1246e26b2e96a420d7d7cbdd26dc70ecc5f6f20b.png";
 import imgLine from "figma:asset/ee94cf026fc403e8421bd64413a8a436652ad5f0.png";
-import h1 from "../assets/image/h01.jpg";
+import h1 from "@/assets/image/pro2/01.jpg";
+import h11 from "@/assets/image/pro2/011.jpg";
+import h12 from "@/assets/image/pro2/012.jpg";
+import h13 from "@/assets/image/pro2/013.jpg";
+import h14 from "@/assets/image/pro2/014.jpg";
+
 import h2 from "../assets/image/h02.jpg";
 import ch1 from "../assets/image/ch1.jpg";
 import ch2 from "../assets/image/ch2.jpg";
 import ch3 from "../assets/image/ch3.jpg";
 import h4 from "../assets/image/h04.jpg";
-import h5 from "../assets/image/h05.jpg";
+
+import h5 from "@/assets/image/pro2/05.jpg";
+import h51 from "@/assets/image/pro2/055.jpg";
+import h52 from "@/assets/image/pro2/052.jpg";
+
 import h6 from "../assets/image/h06.jpg";
 import h7 from "../assets/image/h07.jpg";
 import h8 from "../assets/image/h08.jpg";
@@ -24,31 +33,29 @@ interface ProductDetailPageProps {
 const productDetails: Record<string, any> = {
   '1': {
     id: '1',
-    name: 'น้ำผึ้งเดือนห้า',
-    description: 'น้ำผึ้งจากดอกไม้ป่าธรรมชาติ',
-    price: 350,
-    category: '-----',
-    fullDescription: `น้ำผึ้งดอกไม้ป่าคุณภาพพรีเมี่ยม เก็บจากดอกไม้ป่าธรรมชาติที่ปลอดสารเคมี มีรสชาติหวานกลมกล่อม เหมาะสำหรับรับประทานเพื่อสุขภาพ`,
+    name: 'น้ำผึ้งดอกลิ้นจี่',
+    priceMin: 30,
+priceMax: 250,
+    category: 'น้ำผึ้ง',
+    fullDescription: `น้ำผึ้งชนิดผลิตมาจากเกสรดอกลิ้นจี่ ซึ่งมีความแตกต่างทางด้านกลิ่นหอมเป็นเอกลักษณ์เฉพาะดอกลิ้นจี่ รสหวานน้อยกว่าน้ำผึ้งชนิดอื่น ๆ`,
     features: [
-      'น้ำผึ้งแท้ 100% ไม่มีการผสม',
       'ได้รับการรับรองมาตรฐาน อย.',
       'ปลอดสารเคมี ปลอดภัย',
       'รสชาติหวานกลมกล่อม',
-      'บรรจุขวดแก้วคุณภาพสูง'
     ],
     specifications: {
-      'ขนาด': '500 กรัม',
-      'บรรจุภัณฑ์': 'ขวดแก้ว',
-      'อายุการเก็บ': '2 ปี',
-      'การเก็บรักษา': 'เก็บในที่แห้ง ไม่โดนแสงแดด'
+      'ขนาด': '1000,500,250,140 กรัม',
+      'บรรจุภัณฑ์': 'ขวดพลาสติก',
     },
-    images: [h1],
+    images: [h1,h11,h12,h13,h14],
   },
   '2': {
     id: '2',
     name: 'น้ำผึ้งดอกลิ้นจี่',
     description: '-----',
-    price: 400,
+    priceMin: 30,
+priceMax: 250,
+
     category: '----',
     fullDescription: `น้ำผึ้งลำไยคุณภาพเกรดพรีเมี่ยม เก็บจากสวนลำไยในภาคเหนือ มีกลิ่นหอมของดอกลำไย รสชาติหวานมัน ช่วยบำรุงร่างกาย`,
     features: [
@@ -70,7 +77,9 @@ const productDetails: Record<string, any> = {
     id: '2',
     name: 'ช็อกโกแลตน้ำผึ้ง',
     description: 'น้ำผึ้งจากดอกลำไยแท้',
-    price: 400,
+    priceMin: 30,
+priceMax: 250,
+
     category: '-----',
     fullDescription: `--------------`,
     features: [
@@ -93,7 +102,9 @@ const productDetails: Record<string, any> = {
     id: '4',
     name: 'ข้าวสามสี',
     description: '_-----',
-    price: 400,
+    priceMin: 30,
+priceMax: 250,
+
     category: '-----',
     fullDescription: `---------`,
     features: [
@@ -114,25 +125,22 @@ const productDetails: Record<string, any> = {
 
   '5': {
     id: '5',
-    name: 'น้ำผึ้งสามเกลอ',
+    name: 'ช็อคกอแลตน้ำผึ้งเกสรดอกลิ้นจี่',
     description: '_-----',
-    price: 400,
+    priceMin: 120,
+priceMax: 120,
+
     category: '-----',
-    fullDescription: `---------`,
+    fullDescription: `เป็นขนมเพิ่มความหวานเหมาะสำหรับวัยกลางคน คนที่ใช้แรงงาน และอ๊อฟฟิส เพื่อผ่อนคลายความเครียด มีรสชาติหวานปานกลาง`,
     features: [
-      'น้ำผึ้งจากดอกลำไยแท้',
-      'กลิ่นหอมของดอกลำไย',
+
       'ได้รับการรับรองคุณภาพ',
-      'รสชาติหวานมัน',
-      'เหมาะสำหรับทุกเพศทุกวัย'
     ],
     specifications: {
-      'ขนาด': '500 กรัม',
-      'บรรจุภัณฑ์': 'ขวดแก้ว',
-      'อายุการเก็บ': '2 ปี',
-      'การเก็บรักษา': 'เก็บในที่แห้ง ไม่โดนแสงแดด'
+      'ขนาด': '50 กรัม',
+      'บรรจุภัณฑ์': '',
     },
- images: [h5],
+ images: [h5,h51,h52],
   },
 
    '6': {
@@ -271,7 +279,7 @@ export function ProductDetailPage({ productId, onNavigate }: ProductDetailPagePr
   </div>
 
   {/* รูปเล็ก */}
-  <div className="grid grid-cols-4 gap-3 w-full max-w-[420px]">
+ <div className="grid grid-cols-4 gap-3 w-full max-w-[20px]">
     {product.images.map((img: string, index: number) => (
       <div
         key={index}
@@ -300,7 +308,12 @@ export function ProductDetailPage({ productId, onNavigate }: ProductDetailPagePr
             {/* Price */}
             <div className="mb-6">
               <div className="text-[#898989] text-sm mb-2">ราคา</div>
-              <div className="text-[#f2b530]">{product.price} ฿</div>
+              <div className="text-[#f2b530] text-xl font-medium">
+  {product.priceMin === product.priceMax
+    ? `${product.priceMin} ฿`
+    : `${product.priceMin} - ${product.priceMax} ฿`}
+</div>
+
             </div>
 
             {/* Features */}
