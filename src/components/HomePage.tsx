@@ -2,16 +2,17 @@ import imgHero from "figma:asset/8801ce45fa951cce6a9e6d1e2b15a8abf5650a5f.png";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 
 // import รูปสินค้า
-import lychee from "@/assets/image/001.jpg";
-import longan from "@/assets/image/002.jpg";
-import wildflower from "@/assets/image/003.jpg";
-import lime from "@/assets/image/004.jpg";
-import longanSmall from "@/assets/image/005.jpg";
-import bearWild from "@/assets/image/หมีเดือนห้า.jpg";
-import bearFriends from "@/assets/image/หมีสามเกลอ.jpg";
-import bearCocoa from "@/assets/image/หมีโกโก้.jpg";
-import bearCocoa1 from "@/assets/image/03.jpg";
-import bearCocoa2 from "@/assets/image/04.jpg";
+import h1 from "@/assets/image/pro/01.jpg";
+import h2 from "@/assets/image/home/02.jpg";
+import h3 from "@/assets/image/home/03.jpg";
+import h4 from "@/assets/image/home/04.jpg";
+import h5 from "@/assets/image/home/05.jpg";
+import h6 from "@/assets/image/home/06.jpg";
+import h7 from "@/assets/image/home/07.jpg";
+import h8 from "@/assets/image/home/08.jpg";
+
+import b1 from "@/assets/image/home/09.jpg";
+import b2 from "@/assets/image/home/10.jpg";
 
 interface HomePageProps {
   onNavigate: (page: string, productId?: string) => void;
@@ -23,61 +24,38 @@ interface HomePageProps {
 const featuredProducts = [
   {
     id: "1",
-    name: "น้ำผึ้งเดือนห้า",
-    description: "น้ำผึ้งเดือนห้าแท้จากธรรมชาติ",
-    price: 350,
-    image: wildflower,
+    name: "น้ำผึ้งดอกลิ้นจี่",
+    description: "น้ำหนัก 1000,500,250,140 กรัม",
+    priceMin: 30,
+    priceMax: 250,
+    image: h1,
   },
   {
     id: "2",
-    name: "น้ำผึ้งลำไย",
-    description: "น้ำผึ้งจากดอกลำไยแท้",
-    price: 400,
-    image: longan,
+    name: "น้ำผึ้งเดือนห้า",
+    description: "น้ำหนัก 1000,500,250,140 กรัม",
+    priceMin: 30,
+    priceMax: 250,
+    image: h2,
   },
   {
     id: "3",
-    name: "น้ำผึ้งลิ้นจี่",
-    description: "น้ำผึ้งจากดอกลิ้นจี่คุณภาพ",
-    price: 380,
-    image: lychee,
-  },
-  {
-    id: "4",
-    name: "น้ำผึ้งเดือนห้า (ขวดเล็ก)",
-    description: "ขนาดพกพา",
-    price: 320,
-    image: lime,
+    name: "ครีมนมผึ้งคอลลาเจนพลัส",
+    description: "น้ำหนัก 50 กรัม",
+    priceMin: 350,
+    priceMax: 350,
+    image: h3,
   },
   {
     id: "5",
-    name: "น้ำผึ้งลำไย (ขวดเล็ก)",
-    description: "ขนาดเล็ก เหมาะเป็นของฝาก",
-    price: 300,
-    image: longanSmall,
-  },
-  {
-    id: "6",
-    name: "หมีน้ำผึ้งเดือนห้า",
-    description: "ของฝากยอดนิยม",
-    price: 450,
-    image: bearWild,
-  },
-  {
-    id: "7",
-    name: "หมีสามเกลอ",
-    description: "เซ็ตพิเศษ",
-    price: 420,
-    image: bearFriends,
-  },
-  {
-    id: "8",
-    name: "หมีโกโก้",
-    description: "รสนุ่ม กลมกล่อม",
-    price: 500,
-    image: bearCocoa,
+    name: "ช็อคโกแลตน้ำผึ้งเกสรดอกลิ้นจี่",
+    description: "น้ำหนัก 50 กรัม",
+    priceMin: 120,
+    priceMax: 120,
+    image: h5,
   },
 ];
+
 
 export function HomePage({ onNavigate }: HomePageProps) {
   return (
@@ -113,14 +91,14 @@ export function HomePage({ onNavigate }: HomePageProps) {
           <div className="grid grid-cols-2 gap-8">
             <div className="h-[173px] rounded-[40px] overflow-hidden">
               <img
-                src={bearCocoa1}
+                src={b1}
                 alt="ดอกลิ้นจี่"
                 className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
               />
             </div>
             <div className="h-[173px] rounded-[40px] overflow-hidden">
               <img
-                src={bearCocoa2}
+                src={b2}
                 alt="ดอกลำไย"
                 className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
               />
@@ -163,8 +141,11 @@ export function HomePage({ onNavigate }: HomePageProps) {
                   {product.description}
                 </p>
                 <p className="text-black text-center font-medium">
-                  ราคา {product.price} ฿
-                </p>
+  ราคา {product.priceMin === product.priceMax
+    ? product.priceMin
+    : `${product.priceMin} - ${product.priceMax}`} ฿
+</p>
+
               </div>
             </div>
           ))}

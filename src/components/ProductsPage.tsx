@@ -1,17 +1,16 @@
 import { useState } from 'react';
 import { Search, SlidersHorizontal } from 'lucide-react';
 import imgHero from "figma:asset/8801ce45fa951cce6a9e6d1e2b15a8abf5650a5f.png";
-import h1 from "../assets/image/h01.jpg";
-import h2 from "../assets/image/h02.jpg";
-import ch2 from "../assets/image/ch2.jpg";
-import h4 from "../assets/image/h04.jpg";
-import h5 from "../assets/image/h05.jpg";
-import h6 from "../assets/image/h06.jpg";
-import h7 from "../assets/image/h07.jpg";
-import h8 from "../assets/image/h08.jpg";
-import h9 from "../assets/image/h09.jpg";
-
-
+import h1 from "@/assets/image/pro/01.jpg";
+import h2 from "@/assets/image/pro/02.jpg";
+import h3 from "@/assets/image/pro/03.jpg";
+import h4 from "@/assets/image/pro/04.jpg";
+import h5 from "@/assets/image/pro/05.jpg";
+import h6 from "@/assets/image/pro/06.jpg";
+import h7 from "@/assets/image/pro/07.jpg";
+import h8 from "@/assets/image/pro/08.jpg";
+import h9 from "@/assets/image/pro/09.jpg";
+import h10 from "@/assets/image/pro/10.jpg";
 
 
 
@@ -23,17 +22,88 @@ interface ProductsPageProps {
 
 // Mock products data
 const allProducts = [
-  {  id: '1',name: 'น้ำผึ้งเดือนห้า',description: 'น้ำผึ้งเดือนห้า',price: 350,category: '--', image: h1 },
-  { id: '2', name: 'น้ำผึ้งดอกลิ้นจี่', description: 'น้ำผึ้งดอกลิ้นจี่', price: 400, category: '--', image: h2 },
-  { id: '3', name: 'ช็อกโกแลตน้ำผึ้ง', description: 'ช็อกโกแลตน้ำผึ้ง', price: 380, category: '---------', image: ch2 },
-  { id: '4', name: 'ข้าวสามสี', description: 'ข้าวสามสี', price: 320, category: '----', image: h4 },
-  { id: '5', name: 'น้ำผึ้งสามเกลอ', description: 'น้ำผึ้งสามเกลอ', price: 300, category: '---', image: h5 },
-  { id: '6', name: '-----', description: '---', price: 450, category: '---', image: h6 },
-  { id: '7', name: '---', description: '---', price: 420, category: '---', image: h7 },
-  { id: '8', name: '---', description: '--- ', price: 500, category: '---', image: h8 },
-  { id: '9', name: '---', description: '---', price: 360, category: '---', image: h9 },
-
+  {
+    id: '1',
+    name: 'น้ำผึ้งดอกลิ้นจี่',
+    description: 'น้ำหนัก 1000,500,250,140 กรัม',
+    priceMin: 30,
+    priceMax: 250,
+    image: h1
+  },
+  {
+    id: '2',
+    name: 'น้ำผึ้งเดือนห้า',
+    description: 'น้ำหนัก 1000,500,250,140 กรัม',
+    priceMin: 30,
+    priceMax: 250,
+    image: h2
+  },
+  {
+    id: '3',
+    name: 'ครีมนมผึ้งคอลลาเจนพลัส',
+    description: 'น้ำหนัก 50 กรัม',
+    priceMin: 350,
+    priceMax: 350,
+    image: h3
+  },
+  {
+    id: '4',
+    name: 'น้ำผึ้งเกสรดอกมะกอกน้ำป่า',
+    description: 'น้ำหนัก 1000,500,250,140 กรัม',
+    priceMin: 30,
+    priceMax: 250,
+    image: h4
+  },
+  {
+    id: '5',
+    name: 'ช็อคโกแลตน้ำผึ้งเกสรดอกลิ้นจี่',
+    description: 'น้ำหนัก 50 กรัม',
+    priceMin: 120,
+    priceMax: 120,
+    image: h5
+  },
+  {
+    id: '6',
+    name: 'โลชั่นนมผึ้ง',
+    description: 'น้ำหนัก 200 กรัม',
+    priceMin: 120,
+    priceMax: 120,
+    image: h6
+  },
+  {
+    id: '7',
+    name: 'น้ำผึ้งสี่สหาย',
+    description: 'น้ำหนัก 560 กรัม',
+    priceMin: 150,
+    priceMax: 150,
+    image: h7
+  },
+  {
+    id: '8',
+    name: 'โพรโพลิสเมาท์สเปรย์',
+    description: 'ขนาด 50 ml',
+    priceMin: 180,
+    priceMax: 180,
+    image: h8
+  },
+  {
+    id: '9',
+    name: 'น้ำผึ้งเกสรดอกลำไย',
+    description: 'น้ำหนัก 1000,500,250,140 กรัม',
+    priceMin: 30,
+    priceMax: 250,
+    image: h9
+  },
+  {
+    id: '10',
+    name: 'สบู่นมผึ้ง',
+    description: 'น้ำหนัก 90 กรัม',
+    priceMin: 80,
+    priceMax: 80,
+    image: h10
+  },
 ];
+
 
 const categories = ['ทั้งหมด', 'น้ำผึ้งดอกไม้', 'น้ำผึ้งผลไม้', 'น้ำผึ้งพิเศษ', 'น้ำผึ้งสมุนไพร'];
 
@@ -47,8 +117,10 @@ export function ProductsPage({ onNavigate }: ProductsPageProps) {
   const filteredProducts = allProducts.filter(product => {
     const matchesSearch = product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
                          product.description.toLowerCase().includes(searchQuery.toLowerCase());
-    const matchesCategory = selectedCategory === 'ทั้งหมด' || product.category === selectedCategory;
-    const matchesPrice = product.price >= priceRange[0] && product.price <= priceRange[1];
+    const matchesCategory = selectedCategory === 'ทั้งหมด';
+   const matchesPrice =
+  product.priceMax >= priceRange[0] && product.priceMin <= priceRange[1];
+
     
     return matchesSearch && matchesCategory && matchesPrice;
   });
@@ -163,8 +235,12 @@ export function ProductsPage({ onNavigate }: ProductsPageProps) {
       <div className="p-6">
         <h3 className="text-black text-center mb-2">{product.name}</h3>
         <p className="text-[#a6a6a6] text-sm text-center mb-2">{product.description}</p>
-        <p className="text-xs text-center text-[#898989] mb-4">{product.category}</p>
-        <p className="text-black text-center mb-4">ราคา {product.price} ฿</p>
+        <p className="text-black text-center mb-4">
+  ราคา {product.priceMin === product.priceMax
+    ? `${product.priceMin}`
+    : `${product.priceMin} - ${product.priceMax}`} ฿
+</p>
+
         <button
           onClick={() => onNavigate('product-detail', product.id)}
           className="w-full bg-[#f2b530] hover:bg-[#f6b82d] text-white py-3 rounded-[20px] transition-colors"
