@@ -1,39 +1,12 @@
-import { MapPin, Phone, Mail, Clock, Send, MessageCircle } from 'lucide-react';
-import { useState } from 'react';
+import { MapPin, Phone, Mail, Clock, MessageCircle } from 'lucide-react';
 import imgFacebook from "figma:asset/1246e26b2e96a420d7d7cbdd26dc70ecc5f6f20b.png";
 import imgLine from "figma:asset/ee94cf026fc403e8421bd64413a8a436652ad5f0.png";
+
 interface ContactPageProps {
   onNavigate: (page: string) => void;
 }
+
 export function ContactPage({ onNavigate }: ContactPageProps) {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    subject: '',
-    message: ''
-  });
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Handle form submission
-    alert('ขอบคุณที่ติดต่อเรา! เราจะติดต่อกลับโดยเร็วที่สุด');
-    setFormData({
-      name: '',
-      email: '',
-      phone: '',
-      subject: '',
-      message: ''
-    });
-  };
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
-  };
-
   return (
     <div className="min-h-screen bg-[#fbf8ef]">
       {/* Hero Section */}
@@ -47,196 +20,85 @@ export function ContactPage({ onNavigate }: ContactPageProps) {
       </section>
 
       <div className="max-w-[1422px] mx-auto px-8 py-16">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
-          {/* Contact Information */}
-          <div className="lg:col-span-1 space-y-6">
-            <div>
-              <h2 className="text-black mb-6">ข้อมูลติดต่อ</h2>
-              
-              {/* Address */}
-              <div className="bg-white p-6 rounded-[20px] shadow-lg mb-4">
-                <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 bg-[#f2b530] rounded-full flex items-center justify-center flex-shrink-0">
-                    <MapPin className="w-6 h-6 text-white" />
-                  </div>
-                  <div>
-                    <h3 className="text-black text-sm mb-2">ที่อยู่</h3>
-                    <p className="text-[#5b5b5b] text-sm">
-                      198 ม.10<br />
-                      ตำบล เมืองชุม เขต/อำเภอ เวียงชัย<br />
-                      เชียงราย 57120
-                    </p>
-                  </div>
-                </div>
+        {/* Contact Information - แสดงแบบ Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+          {/* Address */}
+          <div className="bg-white p-6 rounded-[20px] shadow-lg hover:shadow-xl transition-shadow">
+            <div className="flex flex-col items-center text-center">
+              <div className="w-16 h-16 bg-[#f2b530] rounded-full flex items-center justify-center mb-4">
+                <MapPin className="w-8 h-8 text-white" />
               </div>
-
-              {/* Phone */}
-              <div className="bg-white p-6 rounded-[20px] shadow-lg mb-4">
-                <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 bg-[#f2b530] rounded-full flex items-center justify-center flex-shrink-0">
-                    <Phone className="w-6 h-6 text-white" />
-                  </div>
-                  <div>
-                    <h3 className="text-black text-sm mb-2">โทรศัพท์</h3>
-                    <p className="text-[#5b5b5b] text-sm">
-                      097-465-1699
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Email */}
-              <div className="bg-white p-6 rounded-[20px] shadow-lg mb-4">
-                <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 bg-[#f2b530] rounded-full flex items-center justify-center flex-shrink-0">
-                    <Mail className="w-6 h-6 text-white" />
-                  </div>
-                  <div>
-                    <h3 className="text-black text-sm mb-2">อีเมล</h3>
-                    <p className="text-[#5b5b5b] text-sm">
-                      jailaknorravit@gmail.com
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Working Hours */}
-              <div className="bg-white p-6 rounded-[20px] shadow-lg">
-                <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 bg-[#f2b530] rounded-full flex items-center justify-center flex-shrink-0">
-                    <Clock className="w-6 h-6 text-white" />
-                  </div>
-                  <div>
-                    <h3 className="text-black text-sm mb-2">เวลาทำการ</h3>
-                    <p className="text-[#5b5b5b] text-sm">
-                      จันทร์ - ศุกร์: 09:00 - 17:00<br />
-                      เสาร์: 09:00 - 17:00
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Social Media */}
-            <div>
-              <h3 className="text-black mb-4">ติดตามเรา</h3>
-              <div className="flex gap-4">
-                <a
-                  href="https://www.facebook.com/Thaweechokebees?locale=th_TH"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-12 h-12 bg-[#1877F2] rounded-full flex items-center justify-center hover:scale-110 transition-transform"
-                >
-                  <img src={imgFacebook} alt="Facebook" className="w-6 h-6" />
-                </a>
-                <a
-                  href="https://linevoom.line.me/user/_dfBvlrz_2LZF2ct7Gp63mxT3_qsExy9ks-fuZRw"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-12 h-12 bg-[#00B900] rounded-full flex items-center justify-center hover:scale-110 transition-transform"
-                >
-                  <img src={imgLine} alt="Line" className="w-6 h-6" />
-                </a>
-              </div>
+              <h3 className="text-black text-lg mb-3">ที่อยู่</h3>
+              <p className="text-[#5b5b5b] text-sm">
+                198 ม.10<br />
+                ตำบล เมืองชุม เขต/อำเภอ เวียงชัย<br />
+                เชียงราย 57120
+              </p>
             </div>
           </div>
 
-          {/* Contact Form */}
-          <div className="lg:col-span-2">
-            <div className="bg-white p-8 rounded-[20px] shadow-lg">
-              <h2 className="text-black mb-6">ส่งข้อความถึงเรา</h2>
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div>
-                    <label className="block text-[#5b5b5b] text-sm mb-2">
-                      ชื่อ - นามสกุล <span className="text-red-500">*</span>
-                    </label>
-                    <input
-                      type="text"
-                      name="name"
-                      value={formData.name}
-                      onChange={handleChange}
-                      required
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#f2b530] focus:border-transparent"
-                      placeholder="กรอกชื่อของคุณ"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-[#5b5b5b] text-sm mb-2">
-                      อีเมล <span className="text-red-500">*</span>
-                    </label>
-                    <input
-                      type="email"
-                      name="email"
-                      value={formData.email}
-                      onChange={handleChange}
-                      required
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#f2b530] focus:border-transparent"
-                      placeholder="your@email.com"
-                    />
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div>
-                    <label className="block text-[#5b5b5b] text-sm mb-2">
-                      เบอร์โทรศัพท์
-                    </label>
-                    <input
-                      type="tel"
-                      name="phone"
-                      value={formData.phone}
-                      onChange={handleChange}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#f2b530] focus:border-transparent"
-                      placeholder="08X-XXX-XXXX"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-[#5b5b5b] text-sm mb-2">
-                      หัวข้อ <span className="text-red-500">*</span>
-                    </label>
-                    <select
-                      name="subject"
-                      value={formData.subject}
-                      onChange={handleChange}
-                      required
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#f2b530] focus:border-transparent"
-                    >
-                      <option value="">เลือกหัวข้อ</option>
-                      <option value="product">สอบถามเรื่องสินค้า</option>
-                      <option value="order">สั่งซื้อสินค้า</option>
-                      <option value="partnership">ความร่วมมือทางธุรกิจ</option>
-                      <option value="other">อื่นๆ</option>
-                    </select>
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-[#5b5b5b] text-sm mb-2">
-                    ข้อความ <span className="text-red-500">*</span>
-                  </label>
-                  <textarea
-                    name="message"
-                    value={formData.message}
-                    onChange={handleChange}
-                    required
-                    rows={6}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#f2b530] focus:border-transparent resize-none"
-                    placeholder="กรอกข้อความของคุณ..."
-                  />
-                </div>
-
-                <button
-                  type="submit"
-                  className="w-full bg-[#f2b530] hover:bg-[#f6b82d] text-white py-4 rounded-lg flex items-center justify-center gap-2 transition-colors"
-                >
-                  <Send className="w-5 h-5" />
-                  <span>ส่งข้อความ</span>
-                </button>
-              </form>
+          {/* Phone */}
+          <div className="bg-white p-6 rounded-[20px] shadow-lg hover:shadow-xl transition-shadow">
+            <div className="flex flex-col items-center text-center">
+              <div className="w-16 h-16 bg-[#f2b530] rounded-full flex items-center justify-center mb-4">
+                <Phone className="w-8 h-8 text-white" />
+              </div>
+              <h3 className="text-black text-lg mb-3">โทรศัพท์</h3>
+              <p className="text-[#5b5b5b] text-sm">
+                097-465-1699
+              </p>
             </div>
+          </div>
+
+          {/* Email */}
+          <div className="bg-white p-6 rounded-[20px] shadow-lg hover:shadow-xl transition-shadow">
+            <div className="flex flex-col items-center text-center">
+              <div className="w-16 h-16 bg-[#f2b530] rounded-full flex items-center justify-center mb-4">
+                <Mail className="w-8 h-8 text-white" />
+              </div>
+              <h3 className="text-black text-lg mb-3">อีเมล</h3>
+              <p className="text-[#5b5b5b] text-sm">
+                jailaknorravit@gmail.com
+              </p>
+            </div>
+          </div>
+
+          {/* Working Hours */}
+          <div className="bg-white p-6 rounded-[20px] shadow-lg hover:shadow-xl transition-shadow">
+            <div className="flex flex-col items-center text-center">
+              <div className="w-16 h-16 bg-[#f2b530] rounded-full flex items-center justify-center mb-4">
+                <Clock className="w-8 h-8 text-white" />
+              </div>
+              <h3 className="text-black text-lg mb-3">เวลาทำการ</h3>
+              <p className="text-[#5b5b5b] text-sm">
+                จันทร์ - ศุกร์: 09:00 - 17:00<br/>
+                เสาร์: 09:00 - 17:00<br/>
+                หยุดทุกวันอาทิตย์
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Social Media */}
+        <div className="text-center mb-12">
+          <h3 className="text-black text-2xl mb-6">ติดตามเรา</h3>
+          <div className="flex gap-6 justify-center">
+            <a
+              href="https://www.facebook.com/Thaweechokebees?locale=th_TH"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-16 h-16 bg-[#1877F2] rounded-full flex items-center justify-center hover:scale-110 transition-transform shadow-lg"
+            >
+              <img src={imgFacebook} alt="Facebook" className="w-8 h-8" />
+            </a>
+            <a
+              href="https://linevoom.line.me/user/_dfBvlrz_2LZF2ct7Gp63mxT3_qsExy9ks-fuZRw"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-16 h-16 bg-[#00B900] rounded-full flex items-center justify-center hover:scale-110 transition-transform shadow-lg"
+            >
+              <img src={imgLine} alt="Line" className="w-8 h-8" />
+            </a>
           </div>
         </div>
 

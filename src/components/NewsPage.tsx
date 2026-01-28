@@ -289,21 +289,8 @@ export function NewsPage({ onNavigate }: NewsPageProps) {
           </div>
         )}
 
-        {/* Newsletter Subscription */}
-        <div className="mt-16 bg-gradient-to-r from-[#f2b530] to-[#c68d00] rounded-[20px] p-8 md:p-12 text-white text-center">
-          <h2 className="mb-4">รับข่าวสารและโปรโมชั่นพิเศษ</h2>
-          <p className="mb-6 opacity-90">สมัครรับข้อมูลข่าวสารและโปรโมชั่นล่าสุดทางอีเมล</p>
-          <div className="max-w-md mx-auto flex gap-3">
-            <input
-              type="email"
-              placeholder="กรอกอีเมลของคุณ"
-              className="flex-1 px-4 py-3 rounded-full text-black focus:outline-none focus:ring-2 focus:ring-white"
-            />
-            <button className="bg-white text-[#f2b530] px-8 py-3 rounded-full hover:bg-gray-100 transition-colors">
-              สมัคร
-            </button>
-          </div>
-        </div>
+        
+    
       </div>
     </div>
   );
