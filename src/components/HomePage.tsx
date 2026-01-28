@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import imgHero from "figma:asset/8801ce45fa951cce6a9e6d1e2b15a8abf5650a5f.png";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 
@@ -13,6 +14,9 @@ import h8 from "@/assets/image/home/08.jpg";
 
 import b1 from "@/assets/image/home/09.jpg";
 import b2 from "@/assets/image/home/10.jpg";
+
+import award6 from "@/assets/image/home/88.jpg";
+import award7 from "@/assets/image/home/99.jpg";
 
 interface HomePageProps {
   onNavigate: (page: string, productId?: string) => void;
@@ -58,29 +62,99 @@ const featuredProducts = [
 
 
 export function HomePage({ onNavigate }: HomePageProps) {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  
+  // รูปภาพที่จะสลับ
+  const heroImages = [
+    "src/assets/image/Home.jpg",
+    award6,
+    award7,
+  ];
+
+  // Auto slide ทุก 3 วินาที
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex((prevIndex) => 
+        prevIndex === heroImages.length - 1 ? 0 : prevIndex + 1
+      );
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <div className="min-h-screen bg-[#fbf8ef]">
-      {/* ---------------- Hero Section ---------------- */}
+      {/* ---------------- Hero Section with Slider ---------------- */}
       <section className="relative h-[554px] w-full max-w-[1422px] mx-auto overflow-hidden">
-        <img
-          src={imgHero}
-          alt="น้ำผึ้งทวีโชค"
-          className="w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+        {/* Images Container */}
+        <div 
+          className="flex transition-transform duration-700 ease-in-out h-full"
+          style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+        >
+          {heroImages.map((image, index) => (
+            <div key={index} className="w-full h-full flex-shrink-0 relative">
+              {index === 0 ? (
+                <ImageWithFallback
+                  src={image}
+                  className="w-full h-full object-cover"
+                />
+              ) : (
+                <img
+                  src={image}
+                  alt={`Slide ${index + 1}`}
+                  className="w-full h-full object-cover"
+                />
+              )}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+            </div>
+          ))}
+        </div>
+
+        {/* Dots Indicator */}
+        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+          {heroImages.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => setCurrentIndex(index)}
+              className={`h-3 rounded-full transition-all ${
+                currentIndex === index ? 'bg-white w-8' : 'bg-white/50 w-3'
+              }`}
+            />
+          ))}
+        </div>
+
+        {/* ปุ่มซ้าย */}
+        <button
+          onClick={() => setCurrentIndex(prev => 
+            prev === 0 ? heroImages.length - 1 : prev - 1
+          )}
+          className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/50 text-white p-3 rounded-full hover:bg-black/70 transition z-10"
+        >
+          ←
+        </button>
+
+        {/* ปุ่มขวา */}
+        <button
+          onClick={() => setCurrentIndex(prev => 
+            prev === heroImages.length - 1 ? 0 : prev + 1
+          )}
+          className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/50 text-white p-3 rounded-full hover:bg-black/70 transition z-10"
+        >
+          →
+        </button>
       </section>
 
       {/* ---------------- About Section ---------------- */}
       <section className="max-w-[1422px] mx-auto px-8 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           <div>
-            <div className="text-[#999999] mb-4">
+            <div className="text-black mb-4 text-xl">
               ด้วยประสบการณ์มากกว่า 30 ปี
             </div>
-            <h2 className="text-black mb-6">
+            <h2 className="text-black mb-6 text-xl ">
               เส้นทางแห่งคุณภาพกว่า 30 ปี
             </h2>
-            <p className="text-[#5b5b5b] leading-relaxed">
+            <p className="text-[#5b5b5b] leading-relaxed text-xl">
               เราเริ่มเลี้ยงผึ้งมาตั้งแต่ปี 2536 จนถึงปัจจุบัน
               พร้อมเปิดพื้นที่ให้เป็นแหล่งเรียนรู้เรื่องผึ้ง
               รวมถึงให้บริการจัดกระเช้าและจำหน่ายผลิตภัณฑ์ชุมชน
@@ -141,11 +215,10 @@ export function HomePage({ onNavigate }: HomePageProps) {
                   {product.description}
                 </p>
                 <p className="text-black text-center font-medium">
-  ราคา {product.priceMin === product.priceMax
-    ? product.priceMin
-    : `${product.priceMin} - ${product.priceMax}`} ฿
-</p>
-
+                  ราคา {product.priceMin === product.priceMax
+                    ? product.priceMin
+                    : `${product.priceMin} - ${product.priceMax}`} ฿
+                </p>
               </div>
             </div>
           ))}

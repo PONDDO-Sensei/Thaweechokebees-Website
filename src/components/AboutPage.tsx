@@ -7,6 +7,9 @@ import award2 from "@/assets/image/G02.jpg";
 import award3 from "@/assets/image/G03.jpg";
 import award4 from "@/assets/image/G04.jpg";
 import award5 from "@/assets/image/G07.jpg";
+import award6 from "@/assets/image/mom1.jpg";
+import award7 from "@/assets/image/mom2.jpg";
+import award8 from "@/assets/image/Home.jpg";
 
 /* ---------------- Timeline ---------------- */
 const timeline = [
@@ -14,7 +17,6 @@ const timeline = [
   { year: "2564", event: "รับรองผลตรวจคุณภาพนน้ำผึ้ง" },
   { year: "2567", event: "ได้รับอนุญาตให้ใช้ตราผลิตภัณฑ์จังหวัดเชียงราย" },
   { year: "2568", event: "เข้ากิจกรรมพัฒนาผลิตภัณฑ์อาหารและเครื่องดื่ม" },
- 
 ];
 
 /* ---------------- Awards Images ---------------- */
@@ -24,53 +26,107 @@ const awardImages = [
   award3,
   award4,
   award5,
-  
+];
+
+/* ---------------- Hero Images ---------------- */
+const heroImages = [
+  award8, // Home.jpg
+  award6, // mom1.jpg
+  award7, // mom2.jpg
 ];
 
 export function AboutPage() {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [heroIndex, setHeroIndex] = useState(0);
 
-  /* ---------- manual control ---------- */
-  const prevSlide = () => {
-    setCurrentIndex((prev) =>
-      prev === 0 ? awardImages.length - 1 : prev - 1
-    );
-  };
-
-  const nextSlide = () => {
-    setCurrentIndex((prev) =>
-      prev === awardImages.length - 1 ? 0 : prev + 1
-    );
-  };
-
-  /* ---------- auto slide ---------- */
+  /* ---------- Awards auto slide (ปรับเป็น 5 วินาที) ---------- */
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentIndex((prev) =>
         prev === awardImages.length - 1 ? 0 : prev + 1
       );
-    }, 3000); // 3 วินาที
+    }, 5000);
 
     return () => clearInterval(timer);
+  }, []);
+
+  /* ---------- Hero auto slide ---------- */
+  useEffect(() => {
+    const heroTimer = setInterval(() => {
+      setHeroIndex((prev) =>
+        prev === heroImages.length - 1 ? 0 : prev + 1
+      );
+    }, 3000);
+
+    return () => clearInterval(heroTimer);
   }, []);
 
   return (
     <div className="min-h-screen bg-[#fbf8ef]">
 
-      {/* ================= Hero ================= */}
+      {/* ================= Hero with Slider ================= */}
       <section className="relative h-[380px] bg-gradient-to-r from-[#f2b530] to-[#c68d00] overflow-hidden">
+        {/* Background Images Slider */}
         <div className="absolute inset-0 opacity-20">
-          <ImageWithFallback
-            src="src/assets/image/Home.jpg"
-            className="w-full h-full object-cover"
-          />
-        </div>
-        <div className="relative h-full max-w-[1422px] mx-auto px-8 flex items-center">
-          <div className="text-white">
-            <h1 className="mb-4">ประวัติและรางวัล</h1>
-            <p className="text-xl">30 ปี แห่งความมุ่งมั่นและคุณภาพ</p>
+          <div 
+            className="flex h-full transition-transform duration-700 ease-in-out"
+            style={{ transform: `translateX(-${heroIndex * 100}%)` }}
+          >
+            {heroImages.map((img, index) => (
+              <div key={index} className="w-full h-full flex-shrink-0">
+                <img
+                  src={img}
+                  alt={`Hero slide ${index + 1}`}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            ))}
           </div>
         </div>
+
+        {/* Text Content */}
+        <div className="relative h-[300px] w-full max-w-[1422px] mx-auto overflow-hidden flex items-center">
+          <div className="text-white ml-8 md:ml-16">
+            <h1 className="mb-4 text-xl md:text-xl font-bold">ประวัติและรางวัล</h1>
+            <p className="text-xl md:text-xl">30 ปี แห่งความมุ่งมั่นและคุณภาพ</p>
+          </div>
+        </div>
+
+        {/* Dots Indicator */}
+        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+          {heroImages.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => setHeroIndex(index)}
+              className={`h-3 rounded-full transition-all ${
+                heroIndex === index ? 'bg-white w-8' : 'bg-white/50 w-3'
+              }`}
+              aria-label={`Go to slide ${index + 1}`}
+            />
+          ))}
+        </div>
+
+        {/* ปุ่มซ้าย */}
+        <button
+          onClick={() => setHeroIndex(prev => 
+            prev === 0 ? heroImages.length - 1 : prev - 1
+          )}
+          className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/30 text-white p-3 rounded-full hover:bg-black/50 transition z-10"
+          aria-label="Previous"
+        >
+          ←
+        </button>
+
+        {/* ปุ่มขวา */}
+        <button
+          onClick={() => setHeroIndex(prev => 
+            prev === heroImages.length - 1 ? 0 : prev + 1
+          )}
+          className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/30 text-white p-3 rounded-full hover:bg-black/50 transition z-10"
+          aria-label="Next"
+        >
+          →
+        </button>
       </section>
 
       {/* ================= Content ================= */}
@@ -78,12 +134,16 @@ export function AboutPage() {
 
         {/* ---------- About ---------- */}
         <div className="mb-16">
-          <h2 className="text-black mb-8 text-center">เกี่ยวกับเรา</h2>
+          <h2 className="text-black mb-8 text-center text-xl">เกี่ยวกับเรา</h2>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div className="font-bold space-y-4">
-              <p>ร้านน้ำผึ้งทวีโชค เริ่มต้นจากความรักในธรรมชาติ</p>
-              <p>เรามุ่งมั่นผลิตน้ำผึ้งคุณภาพสูง ปลอดสารเคมี</p>
-              <p>วันนี้เราได้รับความไว้วางใจจากลูกค้ามากมาย</p>
+            <div className="bg-white text-xl md:text-3xl lg:text-4xl font-bold text-center leading-relaxed p-8 rounded-lg">
+              <p>
+                ร้านน้ำผึ้งทวีโชค เริ่มต้นจากความรักในธรรมชาติ
+                <br />
+                เรามุ่งมั่นผลิตน้ำผึ้งคุณภาพสูง ปลอดสารเคมี
+                <br />
+                วันนี้เราได้รับความไว้วางใจจากลูกค้ามากมาย
+              </p>
             </div>
             <div className="h-[360px] rounded-[20px] overflow-hidden">
               <ImageWithFallback
@@ -130,63 +190,53 @@ export function AboutPage() {
           </div>
         </div>
 
-        {/* ---------- Awards Slider (Elegant) ---------- */}
+        {/* ---------- Awards Slider (Auto Slide) ---------- */}
         <div className="mb-16">
           <h2 className="text-black mb-8 text-center">
             รางวัลและความสำเร็จ
           </h2>
 
-          <div className="relative max-w-[600px] mx-auto">
-            {/* Main Image Container */}
-            <div className="bg-gradient-to-br from-amber-50/30 to-orange-50/30 p-6 rounded-[24px] shadow-xl border border-gray-200/50">
-              <ImageWithFallback
-                src={awardImages[currentIndex]}
-                alt={`award-${currentIndex + 1}`}
-                className="
-                  w-full
-                  h-[400px]
-                  object-contain
-                  bg-transparent
-                  rounded-[16px]
-                "
-              />
-              
-              {/* Image Counter */}
-              <div className="text-center mt-4 text-sm text-gray-500">
-                {currentIndex + 1} / {awardImages.length}
-              </div>
+          <div className="relative max-w-[600px] mx-auto overflow-hidden">
+            {/* Slider Container */}
+            <div 
+              className="flex transition-transform duration-700 ease-in-out"
+              style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+            >
+              {awardImages.map((img, index) => (
+                <div key={index} className="w-full flex-shrink-0">
+                  <div className="bg-gradient-to-br from-amber-50/30 to-orange-50/30 p-6 rounded-[24px] shadow-xl border border-gray-200/50">
+                    <img
+                      src={img}
+                      alt={`Award ${index + 1}`}
+                      className="w-full h-[400px] object-contain bg-transparent rounded-[16px]"
+                    />
+                    
+                    {/* Image Counter */}
+                    <div className="text-center mt-4 text-sm text-gray-500">
+                      {index + 1} / {awardImages.length}
+                    </div>
+                  </div>
+                </div>
+              ))}
             </div>
 
-            {/* Navigation Buttons */}
+            {/* ปุ่มซ้าย */}
             <button
-              onClick={prevSlide}
-              className="
-                absolute left-4 top-1/2 -translate-y-1/2
-                w-12 h-12 rounded-full
-                bg-gradient-to-br from-[#f2b530] to-[#c68d00]
-                text-white text-2xl font-bold
-                flex items-center justify-center
-                hover:scale-110 active:scale-95
-                transition-all duration-200
-                shadow-lg hover:shadow-xl
-              "
+              onClick={() => setCurrentIndex(prev => 
+                prev === 0 ? awardImages.length - 1 : prev - 1
+              )}
+              className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-gradient-to-br from-[#f2b530] to-[#c68d00] text-white text-2xl font-bold flex items-center justify-center hover:scale-110 active:scale-95 transition-all duration-200 shadow-lg hover:shadow-xl z-10"
               aria-label="Previous"
             >
               ‹
             </button>
 
+            {/* ปุ่มขวา */}
             <button
-              onClick={nextSlide}
-              className="
-                absolute right-4 top-1/2 -translate-y-1/2
-                w-12 h-12 rounded-full
-                bg-gradient-to-br from-[#f2b530] to-[#c68d00]
-                text-white text-2xl font-bold
-                flex items-center justify-center
-                hover:scale-110 active:scale-95
-                transition-all duration-200
-                shadow-lg hover:shadow-xl
-              "
+              onClick={() => setCurrentIndex(prev => 
+                prev === awardImages.length - 1 ? 0 : prev + 1
+              )}
+              className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-gradient-to-br from-[#f2b530] to-[#c68d00] text-white text-2xl font-bold flex items-center justify-center hover:scale-110 active:scale-95 transition-all duration-200 shadow-lg hover:shadow-xl z-10"
               aria-label="Next"
             >
               ›
@@ -198,12 +248,11 @@ export function AboutPage() {
                 <button
                   key={index}
                   onClick={() => setCurrentIndex(index)}
-                  className={`
-                    w-2 h-2 rounded-full transition-all duration-300
-                    ${index === currentIndex 
+                  className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                    index === currentIndex 
                       ? 'bg-[#f2b530] w-8' 
-                      : 'bg-gray-300 hover:bg-gray-400'}
-                  `}
+                      : 'bg-gray-300 hover:bg-gray-400'
+                  }`}
                   aria-label={`Go to image ${index + 1}`}
                 />
               ))}
