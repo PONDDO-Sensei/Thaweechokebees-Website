@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { Search, SlidersHorizontal } from 'lucide-react';
-import imgHero from "figma:asset/8801ce45fa951cce6a9e6d1e2b15a8abf5650a5f.png";
+import imgHero from "@/assets/image/pro/1111.jpg";
 import h1 from "@/assets/image/pro/01.jpg";
 import h2 from "@/assets/image/pro/02.jpg";
 import h3 from "@/assets/image/pro/03.jpg";
-import h4 from "@/assets/image/pro/04.jpg";
+import h4 from "@/assets/image/pro/041.jpg";
 import h5 from "@/assets/image/pro/05.jpg";
 import h6 from "@/assets/image/pro/06.jpg";
 import h7 from "@/assets/image/pro/07.jpg";
@@ -41,7 +41,7 @@ const allProducts = [
   {
     id: '3',
     name: 'ครีมนมผึ้งคอลลาเจนพลัส',
-    description: 'น้ำหนัก 50 กรัม',
+    description: 'น้ำหนัก 50,20 กรัม',
     priceMin: 350,
     priceMax: 350,
     image: h3
