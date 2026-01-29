@@ -9,6 +9,8 @@ interface NavigationProps {
 
 export function Navigation({ currentPage, onNavigate }: NavigationProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [logoHovered, setLogoHovered] = useState(false);
+  const [logoPressed, setLogoPressed] = useState(false);
 
   const handleNavigateAndClose = (page: string) => {
     onNavigate(page);
@@ -20,68 +22,84 @@ export function Navigation({ currentPage, onNavigate }: NavigationProps) {
       <div className="bg-[#fbf8ef] h-[90px] mx-auto max-w-[1920px] px-4 md:px-8 shadow-sm">
         <div className="flex items-center h-full max-w-[1422px] mx-auto">
           {/* Logo and Brand */}
-          <div className="flex items-center gap-3 md:gap-4 cursor-pointer" onClick={() => handleNavigateAndClose('home')}>
-            <div className="h-[50px] w-[60px] md:h-[70px] md:w-[80px] overflow-hidden">
+          <div 
+            className="flex items-center gap-3 md:gap-4 cursor-pointer"
+            onClick={() => handleNavigateAndClose('home')}
+            onMouseEnter={() => setLogoHovered(true)}
+            onMouseLeave={() => {
+              setLogoHovered(false);
+              setLogoPressed(false);
+            }}
+            onMouseDown={() => setLogoPressed(true)}
+            onMouseUp={() => setLogoPressed(false)}
+            style={{
+              transform: logoPressed ? 'scale(0.95)' : logoHovered ? 'scale(1.05)' : 'scale(1)',
+              transition: 'transform 0.2s ease'
+            }}
+          >
+            <div 
+              className="h-[50px] w-[60px] md:h-[70px] md:w-[80px] overflow-hidden"
+              style={{
+                transform: logoHovered ? 'rotate(6deg)' : 'rotate(0deg)',
+                transition: 'transform 0.2s ease'
+              }}
+            >
               <img 
                 alt="น้ำผึ้งทวีโชค Logo" 
                 className="h-full w-full object-contain" 
                 src={imgLogo} 
               />
             </div>
-            <div className="text-black text-base md:text-xl">น้ำผึ้งทวีโชค</div>
+            <div 
+              className="text-base md:text-xl font-medium"
+              style={{
+                color: logoHovered ? '#f2b530' : '#000000',
+                transition: 'color 0.2s ease'
+              }}
+            >
+              น้ำผึ้งทวีโชค
+            </div>
           </div>
 
           {/* Desktop Navigation Links */}
           <div className="hidden lg:flex gap-8 xl:gap-12 ml-auto items-center">
-            <button
+            <NavButton
+              active={currentPage === 'home'}
               onClick={() => onNavigate('home')}
-              className={`transition-colors ${
-                currentPage === 'home' ? 'text-[#f2b530]' : 'text-[#898989] hover:text-[#f2b530]'
-              }`}
             >
               หน้าแรก
-            </button>
-            <button
+            </NavButton>
+            <NavButton
+              active={currentPage === 'products'}
               onClick={() => onNavigate('products')}
-              className={`transition-colors ${
-                currentPage === 'products' ? 'text-[#f2b530]' : 'text-[#898989] hover:text-[#f2b530]'
-              }`}
             >
               สินค้า
-            </button>
-            <button
+            </NavButton>
+            <NavButton
+              active={currentPage === 'about'}
               onClick={() => onNavigate('about')}
-              className={`transition-colors ${
-                currentPage === 'about' ? 'text-[#f2b530]' : 'text-[#898989] hover:text-[#f2b530]'
-              }`}
             >
               ประวัติ &amp; รางวัล
-            </button>
-            <button
+            </NavButton>
+            <NavButton
+              active={currentPage === 'news'}
               onClick={() => onNavigate('news')}
-              className={`transition-colors ${
-                currentPage === 'news' ? 'text-[#f2b530]' : 'text-[#898989] hover:text-[#f2b530]'
-              }`}
             >
               ข่าวสาร
-            </button>
-            <button
+            </NavButton>
+            <NavButton
+              active={currentPage === 'contact'}
               onClick={() => onNavigate('contact')}
-              className={`transition-colors ${
-                currentPage === 'contact' ? 'text-[#f2b530]' : 'text-[#898989] hover:text-[#f2b530]'
-              }`}
             >
               ติดต่อเรา
-            </button>
+            </NavButton>
           </div>
 
           {/* Mobile Menu Button */}
-          <button
+          <MobileMenuButton 
+            isOpen={mobileMenuOpen}
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="ml-auto lg:hidden p-2 text-[#898989] hover:text-[#f2b530] transition-colors"
-          >
-            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-          </button>
+          />
         </div>
       </div>
 
@@ -89,59 +107,123 @@ export function Navigation({ currentPage, onNavigate }: NavigationProps) {
       {mobileMenuOpen && (
         <div className="lg:hidden bg-[#fbf8ef] border-t border-gray-200 shadow-lg">
           <div className="max-w-[1422px] mx-auto px-4 py-4 space-y-2">
-            <button
+            <MobileNavButton
+              active={currentPage === 'home'}
               onClick={() => handleNavigateAndClose('home')}
-              className={`block w-full text-left px-4 py-3 rounded-lg transition-colors ${
-                currentPage === 'home' 
-                  ? 'bg-[#f2b530] text-white' 
-                  : 'text-[#898989] hover:bg-[#f2b530]/10'
-              }`}
             >
               หน้าแรก
-            </button>
-            <button
+            </MobileNavButton>
+            <MobileNavButton
+              active={currentPage === 'products'}
               onClick={() => handleNavigateAndClose('products')}
-              className={`block w-full text-left px-4 py-3 rounded-lg transition-colors ${
-                currentPage === 'products' 
-                  ? 'bg-[#f2b530] text-white' 
-                  : 'text-[#898989] hover:bg-[#f2b530]/10'
-              }`}
             >
               สินค้า
-            </button>
-            <button
+            </MobileNavButton>
+            <MobileNavButton
+              active={currentPage === 'about'}
               onClick={() => handleNavigateAndClose('about')}
-              className={`block w-full text-left px-4 py-3 rounded-lg transition-colors ${
-                currentPage === 'about' 
-                  ? 'bg-[#f2b530] text-white' 
-                  : 'text-[#898989] hover:bg-[#f2b530]/10'
-              }`}
             >
               ประวัติ &amp; รางวัล
-            </button>
-            <button
+            </MobileNavButton>
+            <MobileNavButton
+              active={currentPage === 'news'}
               onClick={() => handleNavigateAndClose('news')}
-              className={`block w-full text-left px-4 py-3 rounded-lg transition-colors ${
-                currentPage === 'news' 
-                  ? 'bg-[#f2b530] text-white' 
-                  : 'text-[#898989] hover:bg-[#f2b530]/10'
-              }`}
             >
               ข่าวสาร
-            </button>
-            <button
+            </MobileNavButton>
+            <MobileNavButton
+              active={currentPage === 'contact'}
               onClick={() => handleNavigateAndClose('contact')}
-              className={`block w-full text-left px-4 py-3 rounded-lg transition-colors ${
-                currentPage === 'contact' 
-                  ? 'bg-[#f2b530] text-white' 
-                  : 'text-[#898989] hover:bg-[#f2b530]/10'
-              }`}
             >
               ติดต่อเรา
-            </button>
+            </MobileNavButton>
           </div>
         </div>
       )}
     </nav>
+  );
+}
+
+// Desktop Navigation Button Component
+function NavButton({ active, onClick, children }: { active: boolean; onClick: () => void; children: React.ReactNode }) {
+  const [hovered, setHovered] = useState(false);
+  const [pressed, setPressed] = useState(false);
+
+  return (
+    <button
+      onClick={onClick}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => {
+        setHovered(false);
+        setPressed(false);
+      }}
+      onMouseDown={() => setPressed(true)}
+      onMouseUp={() => setPressed(false)}
+      style={{
+        color: active ? '#f2b530' : hovered ? '#f2b530' : '#898989',
+        fontWeight: active ? '500' : '400',
+        transform: pressed ? 'scale(0.95) translateY(2px)' : 'scale(1) translateY(0)',
+        transition: 'all 0.2s ease'
+      }}
+    >
+      {children}
+    </button>
+  );
+}
+
+// Mobile Menu Button Component
+function MobileMenuButton({ isOpen, onClick }: { isOpen: boolean; onClick: () => void }) {
+  const [hovered, setHovered] = useState(false);
+  const [pressed, setPressed] = useState(false);
+
+  return (
+    <button
+      onClick={onClick}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => {
+        setHovered(false);
+        setPressed(false);
+      }}
+      onMouseDown={() => setPressed(true)}
+      onMouseUp={() => setPressed(false)}
+      className="ml-auto lg:hidden p-2 rounded-lg"
+      style={{
+        color: hovered ? '#f2b530' : '#898989',
+        backgroundColor: hovered ? 'rgba(242, 181, 48, 0.1)' : 'transparent',
+        transform: pressed ? 'scale(0.9)' : 'scale(1)',
+        transition: 'all 0.2s ease'
+      }}
+    >
+      {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+    </button>
+  );
+}
+
+// Mobile Navigation Button Component
+function MobileNavButton({ active, onClick, children }: { active: boolean; onClick: () => void; children: React.ReactNode }) {
+  const [hovered, setHovered] = useState(false);
+  const [pressed, setPressed] = useState(false);
+
+  return (
+    <button
+      onClick={onClick}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => {
+        setHovered(false);
+        setPressed(false);
+      }}
+      onMouseDown={() => setPressed(true)}
+      onMouseUp={() => setPressed(false)}
+      className="block w-full text-left px-4 py-3 rounded-lg"
+      style={{
+        backgroundColor: active ? '#f2b530' : hovered ? 'rgba(242, 181, 48, 0.1)' : 'transparent',
+        color: active ? '#ffffff' : '#898989',
+        boxShadow: active ? '0 4px 6px -1px rgba(0, 0, 0, 0.1)' : hovered ? '0 1px 3px 0 rgba(0, 0, 0, 0.1)' : 'none',
+        transform: pressed ? 'scale(0.98)' : 'scale(1)',
+        transition: 'all 0.2s ease'
+      }}
+    >
+      {children}
+    </button>
   );
 }
