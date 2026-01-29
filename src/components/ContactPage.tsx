@@ -1,22 +1,97 @@
 import { MapPin, Phone, Mail, Clock, MessageCircle } from 'lucide-react';
+import { useState, useEffect } from 'react';
 import imgFacebook from "figma:asset/1246e26b2e96a420d7d7cbdd26dc70ecc5f6f20b.png";
 import imgLine from "figma:asset/ee94cf026fc403e8421bd64413a8a436652ad5f0.png";
+
+import award77 from '../assets/image/mom777.jpg';
+import award88 from '../assets/image/mom888.jpg';
 
 interface ContactPageProps {
   onNavigate: (page: string) => void;
 }
 
+// Hero slider images
+const heroImages = [award77, award88];
+
 export function ContactPage({ onNavigate }: ContactPageProps) {
+  const [heroIndex, setHeroIndex] = useState(0);
+
+  // Hero auto slide
+  useEffect(() => {
+    const heroTimer = setInterval(() => {
+      setHeroIndex((prev) =>
+        prev === heroImages.length - 1 ? 0 : prev + 1
+      );
+    }, 5000);
+
+    return () => clearInterval(heroTimer);
+  }, []);
+
   return (
     <div className="min-h-screen bg-[#fbf8ef]">
-      {/* Hero Section */}
+      {/* Hero Section with Image Slider */}
       <section className="relative h-[300px] bg-gradient-to-r from-[#f2b530] to-[#c68d00] overflow-hidden">
+        {/* Background Images Slider */}
+        <div className="absolute inset-0 opacity-20">
+          <div 
+            className="flex h-full transition-transform duration-700 ease-in-out"
+            style={{ transform: `translateX(-${heroIndex * 100}%)` }}
+          >
+            {heroImages.map((img, index) => (
+              <div key={index} className="w-full h-full flex-shrink-0">
+                <img
+                  src={img}
+                  alt={`Hero slide ${index + 1}`}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Text Content */}
         <div className="relative h-full max-w-[1422px] mx-auto px-8 flex items-center">
           <div className="text-white">
             <h1 className="mb-4">ติดต่อเรา</h1>
             <p className="text-xl">เรายินดีให้บริการและตอบคำถามของคุณ</p>
           </div>
         </div>
+
+        {/* Dots Indicator */}
+        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+          {heroImages.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => setHeroIndex(index)}
+              className={`h-3 rounded-full transition-all ${
+                heroIndex === index ? 'bg-white w-8' : 'bg-white/50 w-3'
+              }`}
+              aria-label={`Go to slide ${index + 1}`}
+            />
+          ))}
+        </div>
+
+        {/* ปุ่มซ้าย */}
+        <button
+          onClick={() => setHeroIndex(prev => 
+            prev === 0 ? heroImages.length - 1 : prev - 1
+          )}
+          className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/30 text-white p-3 rounded-full hover:bg-black/50 transition z-10"
+          aria-label="Previous"
+        >
+          ←
+        </button>
+
+        {/* ปุ่มขวา */}
+        <button
+          onClick={() => setHeroIndex(prev => 
+            prev === heroImages.length - 1 ? 0 : prev + 1
+          )}
+          className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/30 text-white p-3 rounded-full hover:bg-black/50 transition z-10"
+          aria-label="Next"
+        >
+          →
+        </button>
       </section>
 
       <div className="max-w-[1422px] mx-auto px-8 py-16">
