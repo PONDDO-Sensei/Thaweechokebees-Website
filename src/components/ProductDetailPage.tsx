@@ -542,7 +542,7 @@ onClick={() => {
            {relatedProducts.slice(0, 4).map((item: any) => (
   <div
   key={item.id}
-  onClick={() => onNavigate("product-detail", item.id)}
+  onClick={() => onNavigate(`product-detail/${item.id}`)}
   className="bg-white rounded-[20px] overflow-hidden shadow-lg hover:shadow-xl transition-shadow cursor-pointer"
 >
     <div className="h-[200px] bg-white flex items-center justify-center">

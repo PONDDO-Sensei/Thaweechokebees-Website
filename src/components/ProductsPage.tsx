@@ -28,7 +28,8 @@ const allProducts = [
     description: 'น้ำหนัก 1000,500,250,140 กรัม',
     priceMin: 30,
     priceMax: 250,
-    image: h1
+    image: h1,
+    category: 'น้ำผึ้ง',
   },
   {
     id: '2',
@@ -36,7 +37,8 @@ const allProducts = [
     description: 'น้ำหนัก 1000,500,250,140 กรัม',
     priceMin: 30,
     priceMax: 250,
-    image: h2
+    image: h2,
+    category: 'น้ำผึ้ง',
   },
   {
     id: '3',
@@ -44,7 +46,9 @@ const allProducts = [
     description: 'น้ำหนัก 50,20 กรัม',
     priceMin: 350,
     priceMax: 350,
-    image: h3
+    image: h3,
+    category: 'สินค้าแปรรูป'
+
   },
   {
     id: '4',
@@ -52,7 +56,8 @@ const allProducts = [
     description: 'น้ำหนัก 1000,500,250,140 กรัม',
     priceMin: 30,
     priceMax: 250,
-    image: h4
+    image: h4,
+    category: 'น้ำผึ้ง',
   },
   {
     id: '5',
@@ -60,7 +65,8 @@ const allProducts = [
     description: 'น้ำหนัก 50 กรัม',
     priceMin: 120,
     priceMax: 120,
-    image: h5
+    image: h5,
+    category: 'สินค้าแปรรูป'
   },
   {
     id: '6',
@@ -68,7 +74,8 @@ const allProducts = [
     description: 'น้ำหนัก 200 กรัม',
     priceMin: 120,
     priceMax: 120,
-    image: h6
+    image: h6,
+    category: 'สินค้าแปรรูป'
   },
   {
     id: '7',
@@ -76,7 +83,8 @@ const allProducts = [
     description: 'น้ำหนัก 560 กรัม',
     priceMin: 150,
     priceMax: 150,
-    image: h7
+    image: h7,
+    category: 'น้ำผึ้ง',
   },
   {
     id: '8',
@@ -84,7 +92,8 @@ const allProducts = [
     description: 'ขนาด 50 ml',
     priceMin: 180,
     priceMax: 180,
-    image: h8
+    image: h8,
+    category: 'สินค้าแปรรูป'
   },
   {
     id: '9',
@@ -92,7 +101,8 @@ const allProducts = [
     description: 'น้ำหนัก 1000,500,250,140 กรัม',
     priceMin: 30,
     priceMax: 250,
-    image: h9
+    image: h9,
+    category: 'น้ำผึ้ง'
   },
   {
     id: '10',
@@ -100,26 +110,34 @@ const allProducts = [
     description: 'น้ำหนัก 90 กรัม',
     priceMin: 80,
     priceMax: 80,
-    image: h10
+    image: h10,
+    category: 'สินค้าแปรรูป'
   },
 ];
 
 
-const categories = ['ทั้งหมด', 'น้ำผึ้งดอกไม้', 'น้ำผึ้งผลไม้', 'น้ำผึ้งพิเศษ', 'น้ำผึ้งสมุนไพร'];
+const categories = ['ทั้งหมด', 'น้ำผึ้ง','สินค้าแปรรูป'];
 
 export function ProductsPage({ onNavigate }: ProductsPageProps) {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('ทั้งหมด');
-  const [priceRange, setPriceRange] = useState<[number, number]>([0, 1000]);
+const [minPrice, setMinPrice] = useState('');
+const [maxPrice, setMaxPrice] = useState('');
   const [showFilters, setShowFilters] = useState(false);
+  const min = minPrice === '' ? 0 : Number(minPrice);
+const max = maxPrice === '' ? Infinity : Number(maxPrice);
+
 
   // Filter products
   const filteredProducts = allProducts.filter(product => {
     const matchesSearch = product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
                          product.description.toLowerCase().includes(searchQuery.toLowerCase());
-    const matchesCategory = selectedCategory === 'ทั้งหมด';
+    const matchesCategory =
+  selectedCategory === 'ทั้งหมด' ||
+  product.category === selectedCategory;
    const matchesPrice =
-  product.priceMax >= priceRange[0] && product.priceMin <= priceRange[1];
+  product.priceMax >= min && product.priceMin <= max;
+
 
     
     return matchesSearch && matchesCategory && matchesPrice;
@@ -189,25 +207,29 @@ export function ProductsPage({ onNavigate }: ProductsPageProps) {
                 {/* Price Range Filter */}
                 <div>
                   <label className="block text-sm mb-2 text-[#5b5b5b]">
-                    ช่วงราคา: {priceRange[0]} - {priceRange[1]} ฿
-                  </label>
-                  <div className="flex gap-4 items-center">
-                    <input
-                      type="number"
-                      value={priceRange[0]}
-                      onChange={(e) => setPriceRange([parseInt(e.target.value) || 0, priceRange[1]])}
-                      className="w-24 px-3 py-2 border rounded-lg"
-                      placeholder="ต่ำสุด"
-                    />
-                    <span>-</span>
-                    <input
-                      type="number"
-                      value={priceRange[1]}
-                      onChange={(e) => setPriceRange([priceRange[0], parseInt(e.target.value) || 1000])}
-                      className="w-24 px-3 py-2 border rounded-lg"
-                      placeholder="สูงสุด"
-                    />
-                  </div>
+  ช่วงราคา
+</label>
+
+<div className="flex gap-4 items-center">
+  <input
+    type="number"
+    value={minPrice}
+    onChange={(e) => setMinPrice(e.target.value)}
+    className="w-24 px-3 py-2 border rounded-lg"
+    placeholder="ต่ำสุด"
+  />
+
+  <span>-</span>
+
+  <input
+    type="number"
+    value={maxPrice}
+    onChange={(e) => setMaxPrice(e.target.value)}
+    className="w-24 px-3 py-2 border rounded-lg"
+    placeholder="สูงสุด"
+  />
+</div>
+
                 </div>
               </div>
             </div>
@@ -260,7 +282,9 @@ export function ProductsPage({ onNavigate }: ProductsPageProps) {
               onClick={() => {
                 setSearchQuery('');
                 setSelectedCategory('ทั้งหมด');
-                setPriceRange([0, 1000]);
+                setMinPrice('');
+setMaxPrice('');
+
               }}
               className="mt-4 text-[#f2b530] hover:underline"
             >
