@@ -53,7 +53,7 @@ export function ContactPage({ onNavigate }: ContactPageProps) {
         <div className="relative h-full max-w-[1422px] mx-auto px-8 flex items-center">
           <div className="text-white">
             <h1 className="mb-4">ติดต่อเรา</h1>
-            <p className="text-xl">เรายินดีให้บริการและตอบคำถามของคุณ</p>
+            <p className="text-2xl">เรายินดีให้บริการและตอบคำถามของคุณ</p>
           </div>
         </div>
 

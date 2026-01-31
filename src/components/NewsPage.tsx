@@ -155,10 +155,10 @@ export function NewsPage({ onNavigate }: NewsPageProps) {
         {/* Text Content */}
         <div className="relative h-full max-w-[1422px] mx-auto px-8 flex items-center">
           <div className="text-white">
-            <h1 className="mb-4 text-4xl md:text-5xl font-bold drop-shadow-lg">
+            <h1 className="mb-4">
               ข่าวสารและโปรโมชั่น
             </h1>
-            <p className="text-xl drop-shadow-md">อัพเดทข่าวสารและกิจกรรมล่าสุด</p>
+            <p className="text-2xl drop-shadow-md">อัพเดทข่าวสารและกิจกรรมล่าสุด</p>
           </div>
         </div>
 

@@ -62,10 +62,9 @@ export function AboutPage() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#fbf8ef]">
-
-      {/* ================= Hero with Slider ================= */}
-      <section className="relative h-[380px] bg-gradient-to-r from-[#f2b530] to-[#c68d00] overflow-hidden">
+     <div className="min-h-screen bg-[#fbf8ef]">
+      {/* Hero Section with Image Slider */}
+      <section className="relative h-[300px] bg-gradient-to-r from-[#f2b530] to-[#c68d00] overflow-hidden">
         {/* Background Images Slider */}
         <div className="absolute inset-0 opacity-20">
           <div 
@@ -85,13 +84,14 @@ export function AboutPage() {
         </div>
 
         {/* Text Content */}
-        <div className="relative h-[300px] w-full max-w-[1422px] mx-auto overflow-hidden flex items-center">
-          <div className="text-white ml-8 md:ml-16">
-            <h1 className="mb-4 text-xl md:text-xl font-bold">ประวัติและรางวัล</h1>
-            <p className="text-xl md:text-xl">30 ปี แห่งความมุ่งมั่นและคุณภาพ</p>
+<div className="relative h-full max-w-[1422px] mx-auto px-8 flex items-center">
+          <div className="text-white">
+            <h1 className="mb-4">
+              ประวัติและรางวัล
+            </h1>
+            <p className="text-2xl drop-shadow-md">30 ปี แห่งความมุ่งมั่นและคุณภาพ</p>
           </div>
         </div>
-
         {/* Dots Indicator */}
         <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-10">
           {heroImages.map((_, index) => (

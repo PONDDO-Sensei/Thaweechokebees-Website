@@ -144,6 +144,10 @@ const max = maxPrice === '' ? Infinity : Number(maxPrice);
   });
 
   return (
+
+
+    
+
     <div className="min-h-screen bg-[#fbf8ef]">
       {/* Hero Banner */}
       <section className="relative h-[300px] w-full max-w-[1422px] mx-auto overflow-hidden">
