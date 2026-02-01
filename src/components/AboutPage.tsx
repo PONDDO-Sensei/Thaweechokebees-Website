@@ -133,26 +133,105 @@ export function AboutPage() {
       <section className="max-w-[1422px] mx-auto px-8 py-16">
 
         {/* ---------- About ---------- */}
-        <div className="mb-16">
-          <h2 className="text-black mb-8 text-center text-xl">เกี่ยวกับเรา</h2>
+        <div className="mb-16 ">
+          <h2 className ="text-black mb-8 text-center text-xl ">เกี่ยวกับเรา </h2>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div className="bg-white text-xl md:text-3xl lg:text-4xl font-bold text-center leading-relaxed p-8 rounded-lg">
-              <p>
-                ร้านน้ำผึ้งทวีโชค เริ่มต้นจากความรักในธรรมชาติ
-                <br />
-                เรามุ่งมั่นผลิตน้ำผึ้งคุณภาพสูง ปลอดสารเคมี
-                <br />
-                กลุ่มพัฒนาเกษตรกรรม ตามแนวทางเศรษฐกิจพอเพียง
-                <br />
-                วันนี้เราได้รับความไว้วางใจจากลูกค้ามากมาย
-              </p>
+
+<div style={{
+      minHeight: "50vh",
+      background: "#ffedb0ff",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      padding: "40px 20px",
+      fontFamily: "'Segoe UI', sans-serif"
+    }}>
+      <div style={{
+        position: "relative",
+        maxWidth: 680,
+        width: "100%",
+        background: "rgba(253, 253, 252, 0.73)",
+        borderRadius: 24,
+        padding: "52px 44px",
+        boxShadow: "0 8px 40px rgba(180,140,60,0.1)",
+        border: "1px solid rgba(200,170,80,0.15)",
+        backdropFilter: "blur(6px)"
+      }}>
+
+        {/* Honeycomb deco top */}
+        <div style={{ position: "absolute", top: -28, left: "50%", transform: "translateX(-50%)", display: "flex", gap: 8 }}>
+          {["#f5c842","#f0b82e","#f5c842"].map((c, i) => (
+            <svg key={i} width="44" height="50" viewBox="0 0 44 50">
+              <polygon points="22,2 42,14 42,36 22,48 2,36 2,14" fill={c} opacity={i === 1 ? 1 : 0.55} stroke="#d4a017" strokeWidth="1.5" />
+            </svg>
+          ))}
+        </div>
+
+        {/* Title */}
+        <h2 style={{
+          textAlign: "center",
+          fontSize: 28,
+          fontWeight: 800,
+          color: "#070603ff",
+          marginBottom: 4,
+          letterSpacing: "0.02em",
+          textTransform: "uppercase"
+        }}>
+          ประวัติและความเป็นมา
+        </h2>
+        <div style={{ width: 56, height: 3, background: "linear-gradient(90deg, transparent, #f0b82e, transparent)", borderRadius: 2, margin: "0 auto 32px" }} />
+
+        {/* Timeline items */}
+        {[
+          { icon: "🐝", label: "ผู้ก่อตั้ง", text: "น้ำผึ้งทวีโชค ก่อตั้งโดยคุณรัตติมาใจชื่น" },
+          { icon: "📅", label: "ประสบการณ์", text: "ผู้มีประสบการณ์กว่า 30 ปี" },
+          { icon: "🌐", label: "เครือข่าย", text: "พัฒนาจากธุรกิจท้องถิ่นเข้าสู่เครือข่าย Honey Cluster" },
+          { icon: "📝", label: "จดทะเบียน", text: "จดทะเบียนนิติบุคคลในชื่อ หจก. ผึ้งทวีโชค เมื่อวันที่ 7 มิ.ย. 2560" },
+          { icon: "📍", label: "สำนักงาน", text: "สำนักงานตั้งอยู่ที่ จ.เชียงราย" },
+        ].map((item, i) => (
+          <div key={i} style={{ display: "flex", alignItems: "flex-start", gap: 16, marginBottom: i < 4 ? 24 : 0, position: "relative", paddingLeft: 8 }}>
+            {/* Vertical line */}
+            {i < 4 && <div style={{ position: "absolute", left: 27, top: 36, width: 2, height: "calc(100% + 8px)", background: "linear-gradient(180deg, #f0b82e, #f5c842)" }} />}
+            {/* Icon bubble */}
+            <div style={{
+              minWidth: 44,
+              height: 44,
+              borderRadius: "50%",
+              background: "linear-gradient(135deg, #fde88a, #f5c842)",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              fontSize: 20, 
+              boxShadow: "0 3px 10px rgba(200,160,20,0.25)",
+              zIndex: 1,
+              position: "relative"
+            }}>
+              {item.icon}
             </div>
+            {/* Content */}
+            <div style={{ paddingTop: 4 }}>
+              <div style={{ fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.12em", color: "#c89a1a", marginBottom: 2 }}>{item.label}</div>
+              <div style={{ fontSize: 16, fontWeight: 600, color: "#000000ff", lineHeight: 1.5 }}>{item.text}</div>
+            </div>
+          </div>
+        ))}
+
+        {/* Bottom deco */}
+        <div style={{ marginTop: 36, display: "flex", justifyContent: "center", gap: 6 }}>
+          {[...Array(5)].map((_, i) => (
+            <div key={i} style={{ width: 8, height: 8, borderRadius: "50%", background: i === 2 ? "#f0b82e" : "#f5c84255" }} />
+          ))}
+        </div>
+      </div>
+    </div>
+
             <div className="h-[360px] rounded-[20px] overflow-hidden">
               <ImageWithFallback
                 src="src/assets/image/Home.jpg"
                 className="w-full h-full object-cover"
               />
             </div>
+            
           </div>
         </div>
 
