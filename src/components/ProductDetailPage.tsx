@@ -58,6 +58,7 @@ const productDetails: Record<string, any> = {
     priceMin: 30,
 priceMax: 250,
     category: 'น้ำผึ้ง',
+        lineUrl: 'https://shop.line.me/@088zzpdm/product/1007610542',
     fullDescription: `น้ำผึ้งชนิดผลิตมาจากเกสรดอกลิ้นจี่ ซึ่งมีความแตกต่างทางด้านกลิ่นหอมเป็นเอกลักษณ์เฉพาะดอกลิ้นจี่ รสหวานน้อยกว่าน้ำผึ้งชนิดอื่น ๆ`,
     features: [
     'น้ำผึ้งแท้จากเกสรดอกลิ้นจี่',
@@ -82,6 +83,7 @@ priceMax: 250,
 priceMax: 250,
 
     category: 'น้ำผึ้ง',
+        lineUrl: 'https://shop.line.me/@088zzpdm/product/1007610535',
     fullDescription: `น้ำผึ้งเดือนห้า.น้ำผึ้งชนิดผลิตมาจากเกสรดอกไม้ป่านานาพรรณทั่วไป มีความหอมเป็นธรรมชาติจากดอกไม้ประจำท้องถิ่นของจังหวัดเชียงราย รสหวานปานกลางซึ่งมาจากดอกไม้หลากหลายสายพันธุ์`,
     features: [
       'น้ำผึ้งแท้จากเกสรดอกไม้ป่านานาพรรณ',
@@ -106,6 +108,7 @@ priceMax: 250,
 priceMax: 350,
 
     category: 'สินค้าแปรรูป',
+            lineUrl: 'https://shop.line.me/@088zzpdm/product/1007610587',
     fullDescription: `ใช้สำหรับทาผิวหน้าได้ทั้ง เช้า - เย็น มีส่วนผสมของนมผึ้งซึ่งมีคลอลาเจนจากธรรม และสมุนไพรธรรมชาติสำหรับผิวแพ้ง่าย`,
     features: [
       'ช่วยบำรุงผิวให้ชุ่มชื้น',
@@ -131,6 +134,7 @@ priceMax: 350,
 priceMax: 250,
 
     category: 'น้ำผึ้ง',
+        lineUrl: 'https://shop.line.me/@088zzpdm/product/1007610548',
     fullDescription: `น้ำผึ้งเกสรดอกมะกอกน้ำป่า จากแหล่งธรรมชาติในจังหวัดเชียงรายมีรสหวานอ่อน หอมละมุน หวานนุ่ม ไม่แหลม และหวานน้อยกว่าน้ำผึ้งทั่วไปเหมาะสำหรับผู้ที่ไม่ชอบรสหวานจัด และผู้รักสุขภาพ`,
     features: [
         'น้ำผึ้งแท้จากเกสรดอกมะกอกน้ำป่า',
@@ -157,6 +161,7 @@ priceMax: 250,
 priceMax: 120,
 
     category: 'สินค้าแปรรูป',
+    lineUrl: 'https://shop.line.me/@088zzpdm/product/1007610609',
     fullDescription: `ช็อกโกแลตผสมน้ำผึ้งเกสรดอกลิ้นจี่ให้รสหวานนุ่ม กลมกล่อม ไม่หวานจัดเหมาะสำหรับรับประทานเป็นของว่างช่วยเพิ่มพลังงาน และผ่อนคลายระหว่างวัน`,
     features: [
        'ผลิตจากช็อกโกแลตคุณภาพ ผสมน้ำผึ้งแท้',
@@ -182,6 +187,7 @@ priceMax: 120,
 priceMax: 120,
 
     category: 'สินค้าแปรรูป',
+        lineUrl: 'https://shop.line.me/@088zzpdm/product/1007610591',
     fullDescription: `โลชั่นนมผึ้ง สำหรับบำรุงผิวกาย
 ช่วยเพิ่มความชุ่มชื้นให้ผิวเนียนนุ่ม
 ซึมซาบเร็ว ไม่เหนียวเหนอะหนะ
@@ -211,6 +217,7 @@ priceMax: 120,
 priceMax: 150,
 
     category: 'น้ำผึ้ง',
+        lineUrl: 'https://shop.line.me/@088zzpdm/product/1007610617',
     fullDescription: `น้ำผึ้งสี่สหาย เซ็ตน้ำผึ้งแท้รวม 4 ชนิด
 บรรจุขวดละ 140 กรัม จำนวน 4 ขวด
 ประกอบด้วย
@@ -245,6 +252,7 @@ priceMax: 150,
 priceMax: 180,
 
     category: 'สินค้าแปรรูป',
+        lineUrl: 'https://shop.line.me/@088zzpdm/product/1007610624',
     fullDescription: `โพรโพลิสเมาท์สเปรย์ สำหรับดูแลช่องปากและลำคอ
 ผลิตจากโพรโพลิสธรรมชาติ
 ไม่ใส่สารกันเสีย ไม่แต่งสีและกลิ่น
@@ -276,6 +284,7 @@ priceMax: 180,
 priceMax: 250,
 
     category: 'น้ำผึ้ง',
+        lineUrl: 'https://shop.line.me/@088zzpdm/product/1007610545',
     fullDescription: `น้ำผึ้งแท้จากเกสรดอกลำไย
 มีเอกลักษณ์ด้านกลิ่นหอมเฉพาะของดอกลำไย
 ให้รสหวานชัดเจน เข้มข้น
@@ -305,6 +314,7 @@ priceMax: 250,
 priceMax: 80,
 
     category: 'สินค้าแปรรูป',
+        lineUrl: 'https://shop.line.me/@088zzpdm/product/1007610601',
     fullDescription: `สบู่นมผึ้ง สำหรับทำความสะอาดผิวหน้าและผิวกาย
 ผสมนมผึ้งและสารสกัดจากขมิ้นชัน
 ช่วยทำความสะอาดผิวอย่างอ่อนโยน
@@ -379,12 +389,17 @@ useEffect(() => {
 }, [product.images]);
 
 
-  const handleLineContact = () => {
-    window.open('https://line.me/ti/p/~@example', '_blank');
-  };
+const handleLineContact = () => {
+  if (product.lineUrl) {
+    window.open(product.lineUrl, '_blank');
+  } else {
+    // fallback เผื่อสินค้ายังไม่มีลิงก์
+    window.open('https://shop.line.me/@088zzpdm', '_blank');
+  }
+};
 
   const handleFacebookContact = () => {
-    window.open('https://facebook.com/namphuengthaweechoke', '_blank');
+    window.open('https://www.facebook.com/Thaweechokebees/?locale=th_TH', '_blank');
   };
 
   return (
