@@ -18,6 +18,278 @@ interface NewsPageProps {
   onNavigate: (page: string) => void;
 }
 
+// News Card Component with Interactive Effects
+function NewsCard({ article, isFeatured = false }: { 
+  article: typeof newsArticles[0];
+  isFeatured?: boolean;
+}) {
+  const [isHovered, setIsHovered] = useState(false);
+  const [imageLoaded, setImageLoaded] = useState(false);
+  const [isTouched, setIsTouched] = useState(false);
+
+  const handleTouchStart = () => {
+    setIsTouched(true);
+    setIsHovered(true);
+  };
+
+  const handleTouchEnd = () => {
+    setTimeout(() => {
+      setIsTouched(false);
+      setIsHovered(false);
+    }, 150);
+  };
+
+  if (isFeatured) {
+    return (
+      <a
+        href={article.link}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="block mb-12"
+        onMouseEnter={() => !isTouched && setIsHovered(true)}
+        onMouseLeave={() => !isTouched && setIsHovered(false)}
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
+        onClick={(e) => {
+          // Ensure it opens in new tab
+          e.preventDefault();
+          window.open(article.link, '_blank', 'noopener,noreferrer');
+        }}
+      >
+        <div
+          className="bg-white rounded-[20px] overflow-hidden shadow-xl transition-all duration-300 active:scale-[0.98]"
+          style={{
+            transform: isHovered ? 'translateY(-4px)' : 'translateY(0)',
+            boxShadow: isHovered 
+              ? '0 20px 40px rgba(0,0,0,0.15)' 
+              : '0 10px 20px rgba(0,0,0,0.1)'
+          }}
+        >
+          <div className="grid grid-cols-1 lg:grid-cols-2">
+            {/* Image */}
+            <div className="relative bg-[#999999] h-[400px] overflow-hidden">
+              {article.image && (
+                <ImageWithFallback
+                  src={article.image}
+                  alt={article.title}
+                  onLoad={() => setImageLoaded(true)}
+                  className="w-full h-full object-cover transition-all duration-500"
+                  style={{
+                    transform: isHovered ? 'scale(1.1)' : 'scale(1)',
+                    filter: isHovered ? 'brightness(1.1)' : 'brightness(1)',
+                    opacity: imageLoaded ? 1 : 0
+                  }}
+                />
+              )}
+              
+              {/* Loading Skeleton */}
+              {!imageLoaded && (
+                <div className="absolute inset-0 bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200 animate-pulse" />
+              )}
+
+              {/* Overlay */}
+              <div 
+                className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent transition-opacity duration-300"
+                style={{ opacity: isHovered ? 1 : 0 }}
+              />
+            </div>
+
+            {/* Content */}
+            <div className="p-8 lg:p-12 flex flex-col justify-center relative">
+              {/* Shine Effect */}
+              <div 
+                className="absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent opacity-0 transition-opacity duration-500 pointer-events-none shine-effect"
+                style={{
+                  opacity: isHovered ? 0.3 : 0,
+                  transform: 'skewX(-20deg)'
+                }}
+              />
+
+              <div className="inline-block px-4 py-1 bg-[#f2b530] text-white rounded-full text-sm mb-4 w-fit transition-transform duration-300"
+                style={{ transform: isHovered ? 'scale(1.05)' : 'scale(1)' }}
+              >
+                <Tag className="w-4 h-4 inline-block mr-1" />
+                {article.category}
+              </div>
+
+              <h2 
+                className="text-black mb-4 transition-colors duration-300"
+                style={{ color: isHovered ? '#f6b82d' : '#000' }}
+              >
+                {article.title}
+              </h2>
+
+              <p className="text-[#5b5b5b] mb-6 leading-relaxed">
+                {article.excerpt}
+              </p>
+
+              <div className="flex items-center gap-2 text-[#898989] text-sm mb-6">
+                <Calendar className="w-4 h-4" />
+                <span>
+                  {new Date(article.date).toLocaleDateString('th-TH', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
+                  })}
+                </span>
+              </div>
+
+              <div
+                className="bg-[#f2b530] text-white px-6 py-3 rounded-full flex items-center gap-2 w-fit transition-all duration-300"
+                style={{
+                  transform: isHovered ? 'translateX(5px)' : 'translateX(0)',
+                  backgroundColor: isHovered ? '#f6b82d' : '#f2b530'
+                }}
+              >
+                <span>อ่านเพิ่มเติม</span>
+                <ArrowRight 
+                  className="w-4 h-4 transition-transform"
+                  style={{ transform: isHovered ? 'translateX(4px)' : 'translateX(0)' }}
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </a>
+    );
+  }
+
+  // Regular Card
+  return (
+    <a
+      href={article.link}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="block cursor-pointer"
+      onMouseEnter={() => !isTouched && setIsHovered(true)}
+      onMouseLeave={() => !isTouched && setIsHovered(false)}
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
+      onClick={(e) => {
+        // Ensure it opens in new tab
+        e.preventDefault();
+        window.open(article.link, '_blank', 'noopener,noreferrer');
+      }}
+    >
+      <div
+        className="bg-white rounded-[20px] overflow-hidden shadow-lg transition-all duration-300 relative active:scale-[0.98]"
+        style={{
+          transform: isHovered ? 'translateY(-8px) scale(1.02)' : 'translateY(0) scale(1)',
+          boxShadow: isHovered 
+            ? '0 20px 40px rgba(0,0,0,0.15)' 
+            : '0 4px 6px rgba(0,0,0,0.1)'
+        }}
+      >
+        {/* Image */}
+        <div className="relative bg-[#999999] h-[200px] overflow-hidden">
+          {article.image && (
+            <ImageWithFallback
+              src={article.image}
+              alt={article.title}
+              onLoad={() => setImageLoaded(true)}
+              className="w-full h-full object-cover transition-all duration-500"
+              style={{
+                transform: isHovered ? 'scale(1.1)' : 'scale(1)',
+                filter: isHovered ? 'brightness(1.1)' : 'brightness(1)',
+                opacity: imageLoaded ? 1 : 0
+              }}
+            />
+          )}
+          
+          {/* Loading Skeleton */}
+          {!imageLoaded && (
+            <div className="absolute inset-0 bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200 animate-pulse" />
+          )}
+
+          {/* Overlay */}
+          <div 
+            className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent transition-opacity duration-300"
+            style={{ opacity: isHovered ? 1 : 0 }}
+          />
+
+          {/* "อ่านเพิ่มเติม" Button */}
+          <div 
+            className="absolute inset-0 flex items-center justify-center transition-all duration-300"
+            style={{
+              opacity: isHovered ? 1 : 0,
+              transform: isHovered ? 'translateY(0)' : 'translateY(20px)'
+            }}
+          >
+            <div className="bg-[#f6b82d] hover:bg-[#f2b530] text-white px-6 py-3 rounded-full font-medium shadow-lg">
+              อ่านเพิ่มเติม
+            </div>
+          </div>
+        </div>
+
+        {/* Content */}
+        <div className="p-6 relative">
+          {/* Shine Effect */}
+          <div 
+            className="absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent opacity-0 transition-opacity duration-500 pointer-events-none shine-effect"
+            style={{
+              opacity: isHovered ? 0.3 : 0,
+              transform: 'skewX(-20deg)'
+            }}
+          />
+
+          <div 
+            className="inline-block px-3 py-1 bg-[#f2b530]/20 text-[#f2b530] rounded-full text-xs mb-3 transition-transform duration-300"
+            style={{ transform: isHovered ? 'scale(1.05)' : 'scale(1)' }}
+          >
+            {article.category}
+          </div>
+
+          <h3 
+            className="text-black mb-3 font-semibold transition-colors duration-300"
+            style={{ color: isHovered ? '#f6b82d' : '#000' }}
+          >
+            {article.title}
+          </h3>
+
+          <p className="text-[#5b5b5b] text-sm mb-4 line-clamp-2">
+            {article.excerpt}
+          </p>
+
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2 text-[#898989] text-xs">
+              <Calendar className="w-3 h-3" />
+              <span>
+                {new Date(article.date).toLocaleDateString('th-TH', {
+                  day: 'numeric',
+                  month: 'short',
+                  year: 'numeric',
+                })}
+              </span>
+            </div>
+
+            <div 
+              className="text-[#f2b530] text-sm flex items-center gap-1"
+              style={{
+                color: isHovered ? '#f6b82d' : '#f2b530'
+              }}
+            >
+              <span>อ่านเพิ่ม</span>
+              <ArrowRight 
+                className="w-3 h-3 transition-transform"
+                style={{ transform: isHovered ? 'translateX(4px)' : 'translateX(0)' }}
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* Bottom Accent Line */}
+        <div 
+          className="h-1 bg-gradient-to-r from-transparent via-[#f6b82d] to-transparent transition-all duration-300"
+          style={{
+            opacity: isHovered ? 1 : 0,
+            transform: isHovered ? 'scaleX(1)' : 'scaleX(0)'
+          }}
+        />
+      </div>
+    </a>
+  );
+}
+
 // Hero slider images
 const heroImages = [award77, award88, award99];
 
@@ -59,7 +331,7 @@ const newsArticles = [
     excerpt: 'มีของขวัญและของฝากให้เลือกหลากหลาย โดยเฉพาะ:ของขวัญเหมาะสำหรับมอบให้คนพิเศษ',
     date: '2025-12-10',
     category: 'กิจกรรม',
-    image:  Newgift,
+    image: Newgift,
     link: 'https://www.facebook.com/share/v/171XNHvyZ7/',
     featured: false
   },
@@ -104,7 +376,6 @@ const newsArticles = [
     featured: false
   },
 ];
-
 
 const categories = ['ทั้งหมด', 'โปรโมชั่น', 'ผลิตภัณฑ์ใหม่', 'กิจกรรม', 'บทความ', 'ข่าวสาร'];
 
@@ -176,7 +447,7 @@ export function NewsPage({ onNavigate }: NewsPageProps) {
           ))}
         </div>
 
-        {/* ปุ่มซ้าย */}
+        {/* Navigation Buttons */}
         <button
           onClick={() => setHeroIndex(prev => 
             prev === 0 ? heroImages.length - 1 : prev - 1
@@ -187,7 +458,6 @@ export function NewsPage({ onNavigate }: NewsPageProps) {
           ←
         </button>
 
-        {/* ปุ่มขวา */}
         <button
           onClick={() => setHeroIndex(prev => 
             prev === heroImages.length - 1 ? 0 : prev + 1
@@ -207,9 +477,9 @@ export function NewsPage({ onNavigate }: NewsPageProps) {
               <button
                 key={category}
                 onClick={() => setSelectedCategory(category)}
-                className={`px-6 py-2 rounded-full transition-colors ${
+                className={`px-6 py-2 rounded-full transition-all duration-300 ${
                   selectedCategory === category
-                    ? 'bg-[#f2b530] text-white'
+                    ? 'bg-[#f2b530] text-white shadow-lg scale-105'
                     : 'bg-white text-[#5b5b5b] hover:bg-[#f2b530]/20'
                 }`}
               >
@@ -220,138 +490,16 @@ export function NewsPage({ onNavigate }: NewsPageProps) {
         </div>
 
         {/* Featured Article */}
-    {featuredArticle && selectedCategory === 'ทั้งหมด' && (
-    <a
-    href={featuredArticle.link}
-    target="_blank"
-    rel="noopener noreferrer"
-    className="block mb-12 group"
-  >
-    <div
-      className="bg-white rounded-[20px] overflow-hidden
-                 shadow-xl transition-all duration-300
-                 hover:shadow-2xl hover:-translate-y-1"
-    >
-      <div className="grid grid-cols-1 lg:grid-cols-2">
-        {/* Image */}
-        <div className="bg-[#999999] h-[400px] overflow-hidden">
-          {featuredArticle.image && (
-            <ImageWithFallback
-              src={featuredArticle.image}
-              alt={featuredArticle.title}
-              className="w-full h-full object-cover
-                         transition-transform duration-500
-                         group-hover:scale-105"
-            />
-          )}
-        </div>
-
-        {/* Content */}
-        <div className="p-8 lg:p-12 flex flex-col justify-center">
-          <div className="inline-block px-4 py-1 bg-[#f2b530] text-white rounded-full text-sm mb-4 w-fit">
-            <Tag className="w-4 h-4 inline-block mr-1" />
-            {featuredArticle.category}
-          </div>
-
-          <h2 className="text-black mb-4 group-hover:text-[#f2b530] transition-colors">
-            {featuredArticle.title}
-          </h2>
-
-          <p className="text-[#5b5b5b] mb-6 leading-relaxed">
-            {featuredArticle.excerpt}
-          </p>
-
-          <div className="flex items-center gap-2 text-[#898989] text-sm mb-6">
-            <Calendar className="w-4 h-4" />
-            <span>
-              {new Date(featuredArticle.date).toLocaleDateString('th-TH', {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric',
-              })}
-            </span>
-          </div>
-
-          {/* Button look (แต่จริง ๆ คลิกทั้งการ์ด) */}
-          <div
-            className="bg-[#f2b530] text-white px-6 py-3 rounded-full
-                       flex items-center gap-2 w-fit
-                       transition-all duration-300
-                       group-hover:bg-[#f6b82d]"
-          >
-            <span>อ่านเพิ่มเติม</span>
-            <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-          </div>
-        </div>
-      </div>
-    </div>
-  </a>
-)}
+        {featuredArticle && selectedCategory === 'ทั้งหมด' && (
+          <NewsCard article={featuredArticle} isFeatured={true} />
+        )}
 
         {/* Regular Articles Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {regularArticles.map((article) => (
-       <a
-        key={article.id}
-         href={article.link}
-         target="_blank"
-         rel="noopener noreferrer"
-         className="block group"
-        >
-      <div
-        className="bg-white rounded-[20px] overflow-hidden shadow-lg
-                   transition-all duration-300
-                   hover:shadow-xl hover:-translate-y-1"
-      >
-        {/* Image */}
-        <div className="bg-[#999999] h-[200px] overflow-hidden">
-          {article.image && (
-            <ImageWithFallback
-              src={article.image}
-              alt={article.title}
-              className="w-full h-full object-cover
-                         transition-transform duration-500
-                         group-hover:scale-105"
-            />
-          )}
+          {regularArticles.map((article) => (
+            <NewsCard key={article.id} article={article} />
+          ))}
         </div>
-
-        {/* Content */}
-        <div className="p-6">
-          <div className="inline-block px-3 py-1 bg-[#f2b530]/20 text-[#f2b530] rounded-full text-xs mb-3">
-            {article.category}
-          </div>
-
-          <h3 className="text-black mb-3 group-hover:text-[#f2b530] transition-colors">
-            {article.title}
-          </h3>
-
-          <p className="text-[#5b5b5b] text-sm mb-4 line-clamp-2">
-            {article.excerpt}
-          </p>
-
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2 text-[#898989] text-xs">
-              <Calendar className="w-3 h-3" />
-              <span>
-                {new Date(article.date).toLocaleDateString('th-TH', {
-                  day: 'numeric',
-                  month: 'short',
-                  year: 'numeric',
-                })}
-              </span>
-            </div>
-
-            <div className="text-[#f2b530] text-sm flex items-center gap-1">
-              <span>อ่านเพิ่ม</span>
-              <ArrowRight className="w-3 h-3 transition-transform group-hover:translate-x-1" />
-            </div>
-          </div>
-        </div>
-      </div>
-    </a>
-   ))}
-    </div>
 
         {/* No Results */}
         {filteredNews.length === 0 && (
@@ -365,10 +513,19 @@ export function NewsPage({ onNavigate }: NewsPageProps) {
             </button>
           </div>
         )}
-
-        
-    
       </div>
+
+      {/* CSS Keyframes */}
+      <style>{`
+        @keyframes shine {
+          0% { left: -100%; }
+          100% { left: 200%; }
+        }
+
+        .shine-effect {
+          animation: shine 0.75s;
+        }
+      `}</style>
     </div>
   );
 }

@@ -12,12 +12,137 @@ import h8 from "@/assets/image/pro/08.jpg";
 import h9 from "@/assets/image/pro/09.jpg";
 import h10 from "@/assets/image/pro/10.jpg";
 
-
-
-
-
 interface ProductsPageProps {
   onNavigate: (page: string, productId?: string) => void;
+}
+
+// Product Card Component with Interactive Effects
+function ProductCard({ product, onNavigate }: { 
+  product: typeof allProducts[0]; 
+  onNavigate: (page: string, productId?: string) => void;
+}) {
+  const [isHovered, setIsHovered] = useState(false);
+  const [imageLoaded, setImageLoaded] = useState(false);
+  const [isTouched, setIsTouched] = useState(false);
+
+  const handleTouchStart = () => {
+    setIsTouched(true);
+    setIsHovered(true);
+  };
+
+  const handleTouchEnd = () => {
+    setTimeout(() => {
+      setIsTouched(false);
+      setIsHovered(false);
+    }, 150);
+  };
+
+  return (
+    <div
+      onClick={() => onNavigate('product-detail', product.id)}
+      onMouseEnter={() => !isTouched && setIsHovered(true)}
+      onMouseLeave={() => !isTouched && setIsHovered(false)}
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
+      className="cursor-pointer bg-white rounded-[20px] overflow-hidden shadow-lg transition-all duration-300 relative active:scale-[0.98]"
+      style={{
+        transform: isHovered ? 'translateY(-8px) scale(1.02)' : 'translateY(0) scale(1)',
+        boxShadow: isHovered 
+          ? '0 20px 40px rgba(0,0,0,0.15)' 
+          : '0 4px 6px rgba(0,0,0,0.1)'
+      }}
+    >
+      {/* Image Container with Zoom Effect */}
+      <div className="relative w-full h-[200px] overflow-hidden bg-gray-100">
+        <img
+          src={product.image || h1}
+          alt={product.name}
+          loading="lazy"
+          onLoad={() => setImageLoaded(true)}
+          className="w-full h-full object-cover transition-all duration-500"
+          style={{
+            transform: isHovered ? 'scale(1.1)' : 'scale(1)',
+            filter: isHovered ? 'brightness(1.1)' : 'brightness(1)',
+            opacity: imageLoaded ? 1 : 0
+          }}
+        />
+        
+        {/* Loading Skeleton */}
+        {!imageLoaded && (
+          <div className="absolute inset-0 bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200 animate-pulse" />
+        )}
+
+        {/* Overlay with Gradient */}
+        <div 
+          className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent transition-opacity duration-300"
+          style={{ opacity: isHovered ? 1 : 0 }}
+        />
+
+        {/* "รายละเอียด" Button */}
+        <div 
+          className="absolute inset-0 flex items-center justify-center transition-all duration-300"
+          style={{
+            opacity: isHovered ? 1 : 0,
+            transform: isHovered ? 'translateY(0)' : 'translateY(20px)'
+          }}
+        >
+          <button 
+            className="bg-[#f6b82d] hover:bg-[#f2b530] text-white px-6 py-3 rounded-full font-medium shadow-lg transform transition-transform active:scale-95"
+            onClick={(e) => {
+              e.stopPropagation();
+              onNavigate('product-detail', product.id);
+            }}
+          >
+            รายละเอียด
+          </button>
+        </div>
+      </div>
+
+      {/* Content Section */}
+      <div className="p-6 relative">
+        {/* Shine Effect */}
+        <div 
+          className="absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent opacity-0 transition-opacity duration-500 pointer-events-none shine-effect"
+          style={{
+            opacity: isHovered ? 0.3 : 0,
+            transform: 'skewX(-20deg)'
+          }}
+        />
+
+        <h3 
+          className="text-black text-center mb-2 font-semibold transition-colors duration-300"
+          style={{ color: isHovered ? '#f6b82d' : '#000' }}
+        >
+          {product.name}
+        </h3>
+        
+        <p className="text-[#a6a6a6] text-sm text-center mb-4">
+          {product.description}
+        </p>
+        
+        <p 
+          className="text-black text-center font-bold text-xl transition-all duration-300"
+          style={{
+            transform: isHovered ? 'scale(1.1)' : 'scale(1)',
+            color: isHovered ? '#f6b82d' : '#000'
+          }}
+        >
+          ราคา {product.priceMin === product.priceMax
+            ? product.priceMin
+            : `${product.priceMin} - ${product.priceMax}`} ฿
+        </p>
+      </div>
+
+      {/* Bottom Accent Line */}
+      <div 
+        className="h-1 bg-gradient-to-r from-transparent via-[#f6b82d] to-transparent transition-all duration-300"
+        style={{
+          opacity: isHovered ? 1 : 0,
+          transform: isHovered ? 'scaleX(1)' : 'scaleX(0)'
+        }}
+      />
+    </div>
+  );
 }
 
 // Mock products data
@@ -48,7 +173,6 @@ const allProducts = [
     priceMax: 350,
     image: h3,
     category: 'สินค้าแปรรูป'
-
   },
   {
     id: '4',
@@ -115,39 +239,29 @@ const allProducts = [
   },
 ];
 
-
 const categories = ['ทั้งหมด', 'น้ำผึ้ง','สินค้าแปรรูป'];
 
 export function ProductsPage({ onNavigate }: ProductsPageProps) {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('ทั้งหมด');
-const [minPrice, setMinPrice] = useState('');
-const [maxPrice, setMaxPrice] = useState('');
+  const [minPrice, setMinPrice] = useState('');
+  const [maxPrice, setMaxPrice] = useState('');
   const [showFilters, setShowFilters] = useState(false);
-  const min = minPrice === '' ? 0 : Number(minPrice);
-const max = maxPrice === '' ? Infinity : Number(maxPrice);
 
+  const min = minPrice === '' ? 0 : Number(minPrice);
+  const max = maxPrice === '' ? Infinity : Number(maxPrice);
 
   // Filter products
   const filteredProducts = allProducts.filter(product => {
     const matchesSearch = product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
                          product.description.toLowerCase().includes(searchQuery.toLowerCase());
-    const matchesCategory =
-  selectedCategory === 'ทั้งหมด' ||
-  product.category === selectedCategory;
-   const matchesPrice =
-  product.priceMax >= min && product.priceMin <= max;
-
-
+    const matchesCategory = selectedCategory === 'ทั้งหมด' || product.category === selectedCategory;
+    const matchesPrice = product.priceMax >= min && product.priceMin <= max;
     
     return matchesSearch && matchesCategory && matchesPrice;
   });
 
   return (
-
-
-    
-
     <div className="min-h-screen bg-[#fbf8ef]">
       {/* Hero Banner */}
       <section className="relative h-[300px] w-full max-w-[1422px] mx-auto overflow-hidden">
@@ -211,29 +325,25 @@ const max = maxPrice === '' ? Infinity : Number(maxPrice);
                 {/* Price Range Filter */}
                 <div>
                   <label className="block text-sm mb-2 text-[#5b5b5b]">
-  ช่วงราคา
-</label>
-
-<div className="flex gap-4 items-center">
-  <input
-    type="number"
-    value={minPrice}
-    onChange={(e) => setMinPrice(e.target.value)}
-    className="w-24 px-3 py-2 border rounded-lg"
-    placeholder="ต่ำสุด"
-  />
-
-  <span>-</span>
-
-  <input
-    type="number"
-    value={maxPrice}
-    onChange={(e) => setMaxPrice(e.target.value)}
-    className="w-24 px-3 py-2 border rounded-lg"
-    placeholder="สูงสุด"
-  />
-</div>
-
+                    ช่วงราคา
+                  </label>
+                  <div className="flex gap-4 items-center">
+                    <input
+                      type="number"
+                      value={minPrice}
+                      onChange={(e) => setMinPrice(e.target.value)}
+                      className="w-24 px-3 py-2 border rounded-lg"
+                      placeholder="ต่ำสุด"
+                    />
+                    <span>-</span>
+                    <input
+                      type="number"
+                      value={maxPrice}
+                      onChange={(e) => setMaxPrice(e.target.value)}
+                      className="w-24 px-3 py-2 border rounded-lg"
+                      placeholder="สูงสุด"
+                    />
+                  </div>
                 </div>
               </div>
             </div>
@@ -245,38 +355,16 @@ const max = maxPrice === '' ? Infinity : Number(maxPrice);
           พบสินค้า {filteredProducts.length} รายการ
         </div>
 
-       {/* Products Grid */}
-<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-  {filteredProducts.map((product) => (
-    <div
-      key={product.id}
-      className="bg-white rounded-[20px] overflow-hidden shadow-lg hover:shadow-xl transition-shadow"
-    >
-      <img
-        src={product.image || h1}
-        alt={product.name}
-        className="w-full h-[200px] object-cover"
-      />
-
-      <div className="p-6">
-        <h3 className="text-black text-center mb-2">{product.name}</h3>
-        <p className="text-[#a6a6a6] text-sm text-center mb-2">{product.description}</p>
-        <p className="text-black text-center mb-4">
-  ราคา {product.priceMin === product.priceMax
-    ? `${product.priceMin}`
-    : `${product.priceMin} - ${product.priceMax}`} ฿
-</p>
-
-        <button
-          onClick={() => onNavigate('product-detail', product.id)}
-          className="w-full bg-[#f2b530] hover:bg-[#f6b82d] text-white py-3 rounded-[20px] transition-colors"
-        >
-          รายละเอียด
-        </button>
-      </div>
-    </div>
-  ))}
-</div>
+        {/* Products Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          {filteredProducts.map((product) => (
+            <ProductCard 
+              key={product.id} 
+              product={product} 
+              onNavigate={onNavigate}
+            />
+          ))}
+        </div>
 
         {/* No Results */}
         {filteredProducts.length === 0 && (
@@ -287,8 +375,7 @@ const max = maxPrice === '' ? Infinity : Number(maxPrice);
                 setSearchQuery('');
                 setSelectedCategory('ทั้งหมด');
                 setMinPrice('');
-setMaxPrice('');
-
+                setMaxPrice('');
               }}
               className="mt-4 text-[#f2b530] hover:underline"
             >
@@ -297,6 +384,22 @@ setMaxPrice('');
           </div>
         )}
       </section>
+
+      {/* CSS Keyframes */}
+      <style>{`
+        @keyframes shine {
+          0% { left: -100%; }
+          100% { left: 200%; }
+        }
+
+        .shine-effect {
+          animation: shine 0.75s;
+        }
+
+        .shine-effect:hover {
+          animation: shine 0.75s;
+        }
+      `}</style>
     </div>
   );
 }

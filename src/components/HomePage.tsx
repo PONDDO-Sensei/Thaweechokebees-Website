@@ -22,9 +22,79 @@ interface HomePageProps {
   onNavigate: (page: string, productId?: string) => void;
 }
 
-// --------------------
-// Mock products data
-// --------------------
+// ========================================
+// 🎨 ProductCard Component (แบบสะอาด)
+// ========================================
+interface ProductCardProps {
+  product: {
+    id: string;
+    name: string;
+    description: string;
+    priceMin: number;
+    priceMax: number;
+    image: string;
+  };
+  onClick: (id: string) => void;
+}
+
+function ProductCard({ product, onClick }: ProductCardProps) {
+  const [isHovered, setIsHovered] = useState(false);
+
+  return (
+    <div
+      onClick={() => onClick(product.id)}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      className="cursor-pointer bg-white rounded-[20px] overflow-hidden shadow-lg transition-all duration-300"
+      style={{
+        transform: isHovered ? 'translateY(-8px) scale(1.02)' : 'translateY(0) scale(1)',
+        boxShadow: isHovered 
+          ? '0 20px 40px rgba(0,0,0,0.15)' 
+          : '0 4px 6px rgba(0,0,0,0.1)'
+      }}
+    >
+      {/* Image Container */}
+      <div className="relative w-full h-[300px] overflow-hidden">
+        <img
+          src={product.image}
+          alt={product.name}
+          loading="lazy"
+          className="w-full h-full object-cover transition-all duration-500"
+          style={{
+            transform: isHovered ? 'scale(1.1)' : 'scale(1)',
+            filter: isHovered ? 'brightness(1.05)' : 'brightness(1)'
+          }}
+        />
+        
+        {/* Overlay เมื่อ hover */}
+        <div 
+          className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent transition-opacity duration-300"
+          style={{ opacity: isHovered ? 1 : 0 }}
+        />
+      </div>
+
+      {/* Content */}
+      <div className="p-6">
+        <h3 className="text-black text-center mb-2">
+          {product.name}
+        </h3>
+        <p className="text-[#a6a6a6] text-sm text-center mb-4">
+          {product.description}
+        </p>
+        <p className="text-black text-center font-medium">
+          ราคา {product.priceMin === product.priceMax
+            ? product.priceMin
+            : `${product.priceMin} - ${product.priceMax}`} ฿
+        </p>
+      </div>
+    </div>
+  );
+}
+
+// ========================================
+// 🏠 HomePage Component
+// ========================================
+
 const featuredProducts = [
   {
     id: "1",
@@ -64,14 +134,12 @@ const featuredProducts = [
 export function HomePage({ onNavigate }: HomePageProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   
-  // รูปภาพที่จะสลับ
   const heroImages = [
     "src/assets/image/Home.jpg",
     award6,
     award7,
   ];
 
-  // Auto slide ทุก 3 วินาที
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) => 
@@ -84,9 +152,8 @@ export function HomePage({ onNavigate }: HomePageProps) {
 
   return (
     <div className="min-h-screen bg-[#fbf8ef]">
-      {/* ---------------- Hero Section with Slider ---------------- */}
+      {/* Hero Section */}
       <section className="relative h-[554px] w-full max-w-[1422px] mx-auto overflow-hidden">
-        {/* Images Container */}
         <div 
           className="flex transition-transform duration-700 ease-in-out h-full"
           style={{ transform: `translateX(-${currentIndex * 100}%)` }}
@@ -110,7 +177,7 @@ export function HomePage({ onNavigate }: HomePageProps) {
           ))}
         </div>
 
-        {/* Dots Indicator */}
+        {/* Dots */}
         <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-10">
           {heroImages.map((_, index) => (
             <button
@@ -123,7 +190,7 @@ export function HomePage({ onNavigate }: HomePageProps) {
           ))}
         </div>
 
-        {/* ปุ่มซ้าย */}
+        {/* Arrows */}
         <button
           onClick={() => setCurrentIndex(prev => 
             prev === 0 ? heroImages.length - 1 : prev - 1
@@ -133,7 +200,6 @@ export function HomePage({ onNavigate }: HomePageProps) {
           ←
         </button>
 
-        {/* ปุ่มขวา */}
         <button
           onClick={() => setCurrentIndex(prev => 
             prev === heroImages.length - 1 ? 0 : prev + 1
@@ -144,7 +210,7 @@ export function HomePage({ onNavigate }: HomePageProps) {
         </button>
       </section>
 
-      {/* ---------------- About Section ---------------- */}
+      {/* About Section */}
       <section className="max-w-[1422px] mx-auto px-8 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           <div>
@@ -161,7 +227,6 @@ export function HomePage({ onNavigate }: HomePageProps) {
             </p>
           </div>
 
-          {/* รูป 2 ใบ */}
           <div className="grid grid-cols-2 gap-8">
             <div className="h-[173px] rounded-[40px] overflow-hidden">
               <img
@@ -181,7 +246,7 @@ export function HomePage({ onNavigate }: HomePageProps) {
         </div>
       </section>
 
-      {/* ---------------- Featured Products ---------------- */}
+      {/* Products Section */}
       <section className="max-w-[1422px] mx-auto px-8 py-16">
         <div className="flex justify-between items-center mb-8">
           <h2 className="text-black">สินค้าและผลิตภัณฑ์</h2>
@@ -195,32 +260,11 @@ export function HomePage({ onNavigate }: HomePageProps) {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
           {featuredProducts.map((product) => (
-            <div
+            <ProductCard
               key={product.id}
-              onClick={() => onNavigate("product-detail", product.id)}
-              className="cursor-pointer bg-white rounded-[20px] overflow-hidden shadow-lg hover:shadow-xl transition-all hover:-translate-y-1"
-            >
-              <img
-                src={product.image}
-                alt={product.name}
-                loading="lazy"
-                className="w-full h-[300px] object-cover"
-              />
-
-              <div className="p-6">
-                <h3 className="text-black text-center mb-2">
-                  {product.name}
-                </h3>
-                <p className="text-[#a6a6a6] text-sm text-center mb-4">
-                  {product.description}
-                </p>
-                <p className="text-black text-center font-medium">
-                  ราคา {product.priceMin === product.priceMax
-                    ? product.priceMin
-                    : `${product.priceMin} - ${product.priceMax}`} ฿
-                </p>
-              </div>
-            </div>
+              product={product}
+              onClick={(id) => onNavigate("product-detail", id)}
+            />
           ))}
         </div>
       </section>
