@@ -95,7 +95,7 @@ export function Navigation({ currentPage, onNavigate }: NavigationProps) {
             </NavButton>
           </div>
 
-          {/* Mobile Menu Button */}
+          {/* Mobile Menu Button with Animation */}
           <MobileMenuButton 
             isOpen={mobileMenuOpen}
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -105,7 +105,7 @@ export function Navigation({ currentPage, onNavigate }: NavigationProps) {
 
       {/* Mobile Menu */}
       {mobileMenuOpen && (
-        <div className="lg:hidden bg-[#fbf8ef] border-t border-gray-200 shadow-lg">
+        <div className="lg:hidden bg-[#fbf8ef] border-t border-gray-200 shadow-lg animate-slide-down">
           <div className="max-w-[1422px] mx-auto px-4 py-4 space-y-2">
             <MobileNavButton
               active={currentPage === 'home'}
@@ -171,7 +171,7 @@ function NavButton({ active, onClick, children }: { active: boolean; onClick: ()
   );
 }
 
-// Mobile Menu Button Component
+// Mobile Menu Button Component with Enhanced Animation
 function MobileMenuButton({ isOpen, onClick }: { isOpen: boolean; onClick: () => void }) {
   const [hovered, setHovered] = useState(false);
   const [pressed, setPressed] = useState(false);
@@ -186,15 +186,47 @@ function MobileMenuButton({ isOpen, onClick }: { isOpen: boolean; onClick: () =>
       }}
       onMouseDown={() => setPressed(true)}
       onMouseUp={() => setPressed(false)}
-      className="ml-auto lg:hidden p-2 rounded-lg"
+      className="ml-auto lg:hidden p-2 rounded-lg relative overflow-hidden"
       style={{
         color: hovered ? '#f2b530' : '#898989',
         backgroundColor: hovered ? 'rgba(242, 181, 48, 0.1)' : 'transparent',
-        transform: pressed ? 'scale(0.9)' : 'scale(1)',
-        transition: 'all 0.2s ease'
+        transform: pressed ? 'scale(0.9) rotate(90deg)' : hovered ? 'scale(1.1)' : 'scale(1)',
+        transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)'
       }}
     >
-      {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+      {/* Ripple Effect Background */}
+      {hovered && (
+        <span 
+          className="absolute inset-0 rounded-lg animate-ping-slow"
+          style={{
+            backgroundColor: 'rgba(242, 181, 48, 0.2)',
+          }}
+        />
+      )}
+      
+      {/* Icon with Rotation Animation */}
+      <div
+        style={{
+          transform: isOpen ? 'rotate(90deg)' : 'rotate(0deg)',
+          transition: 'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)'
+        }}
+      >
+        {isOpen ? (
+          <X 
+            className="w-6 h-6 relative z-10" 
+            style={{
+              animation: 'spin-in 0.3s ease-out'
+            }}
+          />
+        ) : (
+          <Menu 
+            className="w-6 h-6 relative z-10"
+            style={{
+              animation: hovered ? 'bounce-subtle 0.5s ease-in-out' : 'none'
+            }}
+          />
+        )}
+      </div>
     </button>
   );
 }
@@ -227,3 +259,64 @@ function MobileNavButton({ active, onClick, children }: { active: boolean; onCli
     </button>
   );
 }
+
+// Add CSS Animations
+const style = document.createElement('style');
+style.textContent = `
+  @keyframes spin-in {
+    0% {
+      transform: rotate(-90deg) scale(0.8);
+      opacity: 0;
+    }
+    50% {
+      transform: rotate(0deg) scale(1.1);
+    }
+    100% {
+      transform: rotate(0deg) scale(1);
+      opacity: 1;
+    }
+  }
+
+  @keyframes bounce-subtle {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    25% {
+      transform: translateY(-3px);
+    }
+    75% {
+      transform: translateY(-1px);
+    }
+  }
+
+  @keyframes ping-slow {
+    0% {
+      transform: scale(1);
+      opacity: 0.8;
+    }
+    100% {
+      transform: scale(1.5);
+      opacity: 0;
+    }
+  }
+
+  @keyframes slide-down {
+    0% {
+      transform: translateY(-10px);
+      opacity: 0;
+    }
+    100% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  .animate-ping-slow {
+    animation: ping-slow 1s cubic-bezier(0, 0, 0.2, 1) infinite;
+  }
+
+  .animate-slide-down {
+    animation: slide-down 0.3s ease-out;
+  }
+`;
+document.head.appendChild(style);
