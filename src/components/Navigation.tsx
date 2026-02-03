@@ -9,12 +9,29 @@ interface NavigationProps {
 
 export function Navigation({ currentPage, onNavigate }: NavigationProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isClosing, setIsClosing] = useState(false);
   const [logoHovered, setLogoHovered] = useState(false);
   const [logoPressed, setLogoPressed] = useState(false);
 
   const handleNavigateAndClose = (page: string) => {
-    onNavigate(page);
-    setMobileMenuOpen(false);
+    setIsClosing(true);
+    setTimeout(() => {
+      setMobileMenuOpen(false);
+      setIsClosing(false);
+      onNavigate(page);
+    }, 300);
+  };
+
+  const handleMenuToggle = () => {
+    if (mobileMenuOpen) {
+      setIsClosing(true);
+      setTimeout(() => {
+        setMobileMenuOpen(false);
+        setIsClosing(false);
+      }, 300);
+    } else {
+      setMobileMenuOpen(true);
+    }
   };
 
   return (
@@ -98,47 +115,51 @@ export function Navigation({ currentPage, onNavigate }: NavigationProps) {
           {/* Mobile Menu Button with Animation */}
           <MobileMenuButton 
             isOpen={mobileMenuOpen}
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            onClick={handleMenuToggle}
           />
         </div>
       </div>
 
-      {/* Mobile Menu */}
-      {mobileMenuOpen && (
-        <div className="lg:hidden bg-[#fbf8ef] border-t border-gray-200 shadow-lg animate-slide-down">
+      {/* Mobile Menu - แก้ไข Animation ตอนปิด */}
+      {(mobileMenuOpen || isClosing) && (
+        <div 
+          className={`lg:hidden bg-[#fbf8ef] border-t border-gray-200 shadow-lg overflow-hidden ${
+            !isClosing ? 'animate-slide-down' : 'animate-slide-up'
+          }`}
+        >
           <div className="max-w-[1422px] mx-auto px-4 py-4 space-y-2">
-            <MobileNavButton
-              active={currentPage === 'home'}
-              onClick={() => handleNavigateAndClose('home')}
-            >
-              หน้าแรก
-            </MobileNavButton>
-            <MobileNavButton
-              active={currentPage === 'products'}
-              onClick={() => handleNavigateAndClose('products')}
-            >
-              สินค้า
-            </MobileNavButton>
-            <MobileNavButton
-              active={currentPage === 'about'}
-              onClick={() => handleNavigateAndClose('about')}
-            >
-              ประวัติ &amp; รางวัล
-            </MobileNavButton>
-            <MobileNavButton
-              active={currentPage === 'news'}
-              onClick={() => handleNavigateAndClose('news')}
-            >
-              ข่าวสาร
-            </MobileNavButton>
-            <MobileNavButton
-              active={currentPage === 'contact'}
-              onClick={() => handleNavigateAndClose('contact')}
-            >
-              ติดต่อเรา
-            </MobileNavButton>
-          </div>
+          <MobileNavButton
+            active={currentPage === 'home'}
+            onClick={() => handleNavigateAndClose('home')}
+          >
+            หน้าแรก
+          </MobileNavButton>
+          <MobileNavButton
+            active={currentPage === 'products'}
+            onClick={() => handleNavigateAndClose('products')}
+          >
+            สินค้า
+          </MobileNavButton>
+          <MobileNavButton
+            active={currentPage === 'about'}
+            onClick={() => handleNavigateAndClose('about')}
+          >
+            ประวัติ &amp; รางวัล
+          </MobileNavButton>
+          <MobileNavButton
+            active={currentPage === 'news'}
+            onClick={() => handleNavigateAndClose('news')}
+          >
+            ข่าวสาร
+          </MobileNavButton>
+          <MobileNavButton
+            active={currentPage === 'contact'}
+            onClick={() => handleNavigateAndClose('contact')}
+          >
+            ติดต่อเรา
+          </MobileNavButton>
         </div>
+      </div>
       )}
     </nav>
   );
@@ -302,12 +323,23 @@ style.textContent = `
 
   @keyframes slide-down {
     0% {
-      transform: translateY(-10px);
+      transform: translateY(-20px);
       opacity: 0;
     }
     100% {
       transform: translateY(0);
       opacity: 1;
+    }
+  }
+
+  @keyframes slide-up {
+    0% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(-20px);
+      opacity: 0;
     }
   }
 
@@ -317,6 +349,10 @@ style.textContent = `
 
   .animate-slide-down {
     animation: slide-down 0.3s ease-out;
+  }
+
+  .animate-slide-up {
+    animation: slide-up 0.3s ease-out;
   }
 `;
 document.head.appendChild(style);
