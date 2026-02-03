@@ -6,7 +6,7 @@ import Otopbangkok from '../assets/image/Otop-Bangkok.jpg';
 import Honey3seasons from '../assets/image/Honey-3-seasons.jpg';
 import Newgift from '../assets/image/New-Gift.png';
 import RattimaDIP from '../assets/image/Rattima-DIP.jpg';
-import Otophatyai from '../assets/image/Otop-Hatyai.jpg';
+import Otophatyai from '../assets/image/Otophatyai.jpg';
 import Smallbears from '../assets/image/Small-Bears.jpg';
 import Honeyallseasons from '../assets/image/Honey-all-seasons.jpg';
 
