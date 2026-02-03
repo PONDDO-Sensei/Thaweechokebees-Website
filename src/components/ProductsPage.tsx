@@ -289,31 +289,73 @@ export function ProductsPage({ onNavigate }: ProductsPageProps) {
                 className="w-full pl-12 pr-4 py-3 bg-white rounded-lg border-0 focus:outline-none focus:ring-2 focus:ring-[#f2b530]"
               />
             </div>
+            
+            {/* 🎨 Enhanced Filter Button with Animations */}
             <button
               onClick={() => setShowFilters(!showFilters)}
-              className="bg-[#f1ad06] hover:bg-[#f2b530] text-white px-6 py-3 rounded-lg flex items-center gap-2 transition-colors"
+              className="bg-[#f1ad06] hover:bg-[#f2b530] active:bg-[#d99e05] text-white px-6 py-3 rounded-lg flex items-center gap-2 transition-all duration-300 hover:shadow-xl hover:-translate-y-1 active:translate-y-0 active:shadow-md relative overflow-hidden group min-w-[140px] justify-center"
             >
-              <SlidersHorizontal className="w-5 h-5" />
-              <span>ตัวกรอง</span>
+              {/* Animated background gradient */}
+              <div 
+                className="absolute inset-0 bg-gradient-to-r from-[#f1ad06] via-[#ffd700] to-[#f1ad06] opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                style={{
+                  backgroundSize: '200% 100%',
+                  animation: showFilters ? 'none' : 'shimmer 2s linear infinite'
+                }}
+              />
+              
+              {/* Shine effect on hover */}
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
+              
+              {/* Icon with smooth rotation and scale */}
+              <SlidersHorizontal 
+                className="w-5 h-5 transition-all duration-500 relative z-10" 
+                style={{ 
+                  transform: showFilters 
+                    ? 'rotate(180deg) scale(1.2)' 
+                    : 'rotate(0deg) scale(1)',
+                  filter: showFilters ? 'drop-shadow(0 0 4px rgba(255,255,255,0.8))' : 'none'
+                }}
+              />
+              
+              {/* Text with fade transition */}
+              <span className="relative z-10 font-medium transition-all duration-300">
+                {showFilters ? 'ซ่อนตัวกรอง' : 'ตัวกรอง'}
+              </span>
+              
+              {/* Ripple effect on click */}
+              <div className="absolute inset-0 bg-white/20 scale-0 group-active:scale-100 rounded-lg transition-transform duration-200" />
+              
+              {/* Pulse effect when filters are active */}
+              {showFilters && (
+                <div className="absolute inset-0 rounded-lg animate-pulse-slow bg-white/10" />
+              )}
             </button>
           </div>
 
-          {/* Filter Panel */}
-          {showFilters && (
-            <div className="mt-4 p-4 bg-white rounded-lg">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* Filter Panel with smooth slide animation */}
+          <div 
+            className="overflow-hidden transition-all duration-500 ease-in-out"
+            style={{
+              maxHeight: showFilters ? '500px' : '0',
+              opacity: showFilters ? 1 : 0,
+              transform: showFilters ? 'translateY(0)' : 'translateY(-20px)'
+            }}
+          >
+            <div className="mt-4 p-4 sm:p-6 bg-white rounded-lg shadow-inner">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
                 {/* Category Filter */}
                 <div>
-                  <label className="block text-sm mb-2 text-[#5b5b5b]">หมวดหมู่</label>
+                  <label className="block text-sm mb-3 text-[#5b5b5b] font-semibold">หมวดหมู่</label>
                   <div className="flex flex-wrap gap-2">
                     {categories.map((category) => (
                       <button
                         key={category}
                         onClick={() => setSelectedCategory(category)}
-                        className={`px-4 py-2 rounded-full transition-colors ${
+                        className={`px-4 py-2 rounded-full transition-all duration-300 text-sm sm:text-base ${
                           selectedCategory === category
-                            ? 'bg-[#f2b530] text-white'
-                            : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                            ? 'bg-[#f2b530] text-white shadow-md scale-105'
+                            : 'bg-gray-200 text-gray-700 hover:bg-gray-300 hover:scale-105'
                         }`}
                       >
                         {category}
@@ -324,34 +366,39 @@ export function ProductsPage({ onNavigate }: ProductsPageProps) {
 
                 {/* Price Range Filter */}
                 <div>
-                  <label className="block text-sm mb-2 text-[#5b5b5b]">
-                    ช่วงราคา
+                  <label className="block text-sm mb-3 text-[#5b5b5b] font-semibold">
+                    ช่วงราคา (฿)
                   </label>
-                  <div className="flex gap-4 items-center">
+                  <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 items-stretch sm:items-center">
                     <input
                       type="number"
                       value={minPrice}
                       onChange={(e) => setMinPrice(e.target.value)}
-                      className="w-24 px-3 py-2 border rounded-lg"
-                      placeholder="ต่ำสุด"
+                      className="w-full sm:flex-1 px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#f2b530] focus:border-[#f2b530] transition-all text-base"
+                      placeholder="ราคาต่ำสุด"
                     />
-                    <span>-</span>
+                    <span className="hidden sm:block text-[#5b5b5b] font-medium text-lg shrink-0">-</span>
+                    <div className="flex sm:hidden items-center justify-center py-1">
+                      <div className="w-full h-px bg-gray-300 flex-1"></div>
+                      <span className="px-3 text-[#5b5b5b] text-sm">ถึง</span>
+                      <div className="w-full h-px bg-gray-300 flex-1"></div>
+                    </div>
                     <input
                       type="number"
                       value={maxPrice}
                       onChange={(e) => setMaxPrice(e.target.value)}
-                      className="w-24 px-3 py-2 border rounded-lg"
-                      placeholder="สูงสุด"
+                      className="w-full sm:flex-1 px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#f2b530] focus:border-[#f2b530] transition-all text-base"
+                      placeholder="ราคาสูงสุด"
                     />
                   </div>
                 </div>
               </div>
             </div>
-          )}
+          </div>
         </div>
 
         {/* Results Count */}
-        <div className="mb-6 text-[#5b5b5b]">
+        <div className="mb-6 text-[#5b5b5b] font-medium">
           พบสินค้า {filteredProducts.length} รายการ
         </div>
 
@@ -369,7 +416,7 @@ export function ProductsPage({ onNavigate }: ProductsPageProps) {
         {/* No Results */}
         {filteredProducts.length === 0 && (
           <div className="text-center py-16">
-            <p className="text-[#898989]">ไม่พบสินค้าที่ตรงกับเงื่อนไข</p>
+            <p className="text-[#898989] text-lg mb-4">ไม่พบสินค้าที่ตรงกับเงื่อนไข</p>
             <button
               onClick={() => {
                 setSearchQuery('');
@@ -377,7 +424,7 @@ export function ProductsPage({ onNavigate }: ProductsPageProps) {
                 setMinPrice('');
                 setMaxPrice('');
               }}
-              className="mt-4 text-[#f2b530] hover:underline"
+              className="mt-4 text-[#f2b530] hover:underline font-medium transition-all hover:scale-105"
             >
               ล้างตัวกรอง
             </button>
@@ -392,12 +439,26 @@ export function ProductsPage({ onNavigate }: ProductsPageProps) {
           100% { left: 200%; }
         }
 
+        @keyframes shimmer {
+          0% { background-position: -200% 0; }
+          100% { background-position: 200% 0; }
+        }
+
+        @keyframes pulse-slow {
+          0%, 100% { opacity: 0.1; }
+          50% { opacity: 0.2; }
+        }
+
         .shine-effect {
           animation: shine 0.75s;
         }
 
         .shine-effect:hover {
           animation: shine 0.75s;
+        }
+
+        .animate-pulse-slow {
+          animation: pulse-slow 2s ease-in-out infinite;
         }
       `}</style>
     </div>
