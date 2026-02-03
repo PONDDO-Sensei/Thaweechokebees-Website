@@ -332,7 +332,7 @@ export function AboutPage() {
             {/* Image */}
             <div className="order-1 lg:order-2 h-[300px] sm:h-[400px] lg:h-[450px] rounded-[20px] overflow-hidden shadow-xl group">
               <ImageWithFallback
-                src="src/assets/image/Home.jpg"
+                src={award8}
                 className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 group-active:scale-110"
               />
             </div>

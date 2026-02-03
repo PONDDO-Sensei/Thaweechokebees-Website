@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import imgHero from "figma:asset/8801ce45fa951cce6a9e6d1e2b15a8abf5650a5f.png";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 
-// import รูปสินค้า
+import homeImage from "@/assets/image/Home.jpg";
 import h1 from "@/assets/image/pro/01.jpg";
 import h2 from "@/assets/image/home/02.jpg";
 import h3 from "@/assets/image/home/03.jpg";
@@ -135,7 +135,7 @@ export function HomePage({ onNavigate }: HomePageProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   
   const heroImages = [
-    "src/assets/image/Home.jpg",
+    homeImage,
     award6,
     award7,
   ];
